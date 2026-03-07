@@ -1,23 +1,18 @@
-import Header from "../compontents/Header";
-import Hero from "../compontents/Hero";
-import About from "../compontents/About";
-import Services from "../compontents/Services";
-import Gallery from "../compontents/Gallery";
-import Blog from "../compontents/Blog";
-import Contact from "../compontents/Contact";
-import Footer from "../compontents/Footer";
+import Header from "../components/Header";
+import Hero from "../components/Hero";
+import About from "../components/About";
+import Services from "../components/Services";
+import Gallery from "../components/Gallery";
+import Blog from "../components/Blog";
+import Contact from "../components/Contact";
+import Footer from "../components/Footer";
 
 export default function Home() {
   return (
     <>
-      <Header />
+  
       <Hero />
       <About />
-      <Services />
-      <Gallery />
-      <Blog />
-      <Contact />
-      <Footer />
     </>
   );
 }
