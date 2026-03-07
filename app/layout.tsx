@@ -2,7 +2,7 @@ import "./globals.css";
 
 export const metadata = {
     title: "KArt Everything",
-    description: "Kat's portfolio and journal".
+    description: "Kat's portfolio and journal",
 };
 
 export default function RootLayout({ children}) {
