@@ -44,6 +44,7 @@ export default function Header() {
                 </span>
             </div>
 
+            {/*}
             <nav className="curtain-content">
                 <Link href="/" onClick={() => setOpen(false)}>Home</Link>
                 <Link href="/about" onClick={() => setOpen(false)}>About</Link>
@@ -52,6 +53,7 @@ export default function Header() {
                 <Link href="/blog" onClick={() => setOpen(false)}>Blog</Link>
                 <Link href="/contact" onClick={() => setOpen(false)}>Contact</Link>
             </nav>
+            {*/}
         </header>
     );
 }
