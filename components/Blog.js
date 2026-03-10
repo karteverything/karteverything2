@@ -4,22 +4,22 @@ const posts = [
     {
         title: "Personal Growth",
         snippet: "This page is a snapshot of what I'm currently learning, building, and improving.",
-        slug: "Projects",
+        href: "/blog/personal-growth",
     },
     {
         title: "Supabase Integration",
         snippet: "See how I integrated Supabase database for my Portraiture Gallery.",
-        slug: "Supabase",
+        href: "/blog/supabase",
     },
     {
         title: "The Precision of Perfection",
         snippet: "The say perfection is a sickness, but maybe it's just love expressed with precision.",
-        slug: "Perfection",
+        href: "/blog/perfection",
     },
     {
         title: "Engineering Emotion: Why I love cars",
         snippet: "From roaring engines to sleek designs, cars aren't just machines.",
-        slug: "Cars",
+        href: "/blog/engineering",
     },
 ];
 
@@ -33,12 +33,12 @@ export default function Blog() {
 
         <div className="blog-grid">
 
-            {posts.map((post, index) => (
-                <div className="blog-card" key={index}>
+            {posts.map((post) => (
+                <div className="blog-card" key={post.href}>
                     <h3>{post.title}</h3>
                     <p className="blog-snippet">{post.snippet}</p>
 
-                    <Link href={`/blog/${post.slug}`} className="btn">
+                    <Link href={`/blog/${post.href}`} className="btn">
                         Read More
                     </Link>
                 </div>
