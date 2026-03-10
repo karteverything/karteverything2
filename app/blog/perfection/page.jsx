@@ -45,9 +45,9 @@ export default function Perfection() {
                 </p>
                 </article>
 
-                <Link href="/#blog" className="btn">
-                Back to Blog
-                </Link>
+                <a href="/#blog" className="btn">
+                    Back to Blog
+                </a>
             </div>
             </section>
     );
