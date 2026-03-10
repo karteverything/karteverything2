@@ -12,27 +12,33 @@ export default function Contact() {
         message: "",
     });
 
+    // for success/error message
     const [status, setStatus] = useState("");
 
-    const sendEmail = async (e) => {
-        e.preventDefault();
-        setStatus("Sending...");
+    const handleChange = (e) => {
+        setFormData({...formData, [e.target.name]: e.target.value});
     };
 
-    try {
-        const result = await emailjs.send(
-            process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID,
-            process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID,
-            formData,
-            process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY
-        );
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        setStatus("Sending...");
 
-        setStatus("Message sent successfully!");
-        setFormData({ name: "", email: "", subject: "", message: "" });
-    } catch (error) {
-        console.error(error);
-        setStatus("Failed to send message. Try again.");
-    }
+        try {
+            const result = await emailjs.send(
+                process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID,
+                process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID,
+                formData,
+                process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY
+            );
+            console.log(result.text);
+            setStatus("Message sent successfully!");
+            // reset form
+            setFormData({ name: "", email: "", subject: "", message: "" });
+        } catch (error) {
+            console.error(error);
+            setStatus("Failed to send message. Try again.");
+        }
+    };
 
     return (
         <section id="contact" className="contact-section">
@@ -44,7 +50,7 @@ export default function Contact() {
             <div className="contact-container">
                 {/* left */}
                 <div className="contact-left">
-                    <form className="contact-form" onSubmit={sendEmail}>
+                    <form className="contact-form" onSubmit={handleSubmit}>
                         <input
                             type="text"
                             name="name"
