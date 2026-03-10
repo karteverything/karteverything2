@@ -17,28 +17,30 @@ const services = [
 ];
 
 export default function Services() {
-    <section id="services" className="services-section">
-        <h2>My Services</h2>
-        <p>
-            I provide reliable and creative solutions to help you build,
-            maintain, and enhance your online and tech presence.
-        </p>
+    return (
+        <section id="services" className="services-section">
+            <h2>My Services</h2>
+            <p>
+                I provide reliable and creative solutions to help you build,
+                maintain, and enhance your online and tech presence.
+            </p>
 
-        <div className="services-container">
-            {services.map((service, index) => (
-            <div className="box" key={index}>
+            <div className="services-container">
+                {services.map((service, index) => (
+                <div className="box" key={index}>
 
-                <div className="icon">
-                    <i className={service.icon}></i>
+                    <div className="icon">
+                        <i className={service.icon}></i>
+                    </div>
+
+                    <div className="details">
+                        <h3>{service.title}</h3>
+                        <p>{service.description}</p>
+                    </div>
+
                 </div>
-
-                <div className="details">
-                    <h3>{service.title}</h3>
-                    <p>{service.description}</p>
-                </div>
-
+                ))}
             </div>
-            ))}
-        </div>
-    </section>
+        </section>
+    );
 }
