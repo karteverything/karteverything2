@@ -1,4 +1,4 @@
-const blogPosts = [
+export const blogPosts = [
     {
         slug: "personal-growth",
         title: "Personal Growth",
