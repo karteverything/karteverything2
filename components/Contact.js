@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import emailjs from "@emailjs/browser";
+import toast, { Toaster } from "react-hot-toast";
 
 export default function Contact() {
 
@@ -21,7 +22,7 @@ export default function Contact() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        setStatus("Sending...");
+        toast.loading("Sending message...");
 
         try {
             const result = await emailjs.send(
@@ -31,12 +32,15 @@ export default function Contact() {
                 process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY
             );
             console.log(result.text);
-            setStatus("Message sent successfully!");
+            // remove loading toast
+            toast.dismiss();
+            toast.success("Message sent successfully!");
             // reset form
             setFormData({ name: "", email: "", subject: "", message: "" });
         } catch (error) {
             console.error(error);
-            setStatus("Failed to send message. Try again.");
+            toast.dismiss();
+            toast.error("Failed to send message. Try again.");
         }
     };
 
