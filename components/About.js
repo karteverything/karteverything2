@@ -4,7 +4,7 @@ export default function About() {
             <div className="about-container container">
 
                 <div className="column full-width">
-                    <h2 className="section-title">About Kat11</h2>
+                    <h2 className="section-title">About Kat</h2>
 
                     <p>
                         I build websites, and capture moments through photography.
@@ -22,6 +22,7 @@ export default function About() {
                             [HTML | CSS | JavaScript | NextJS]
                         </li>
                         <li>Java</li>
+                        <li>C</li>
                         <li>Git & GitHub workflows</li>
                         <li>Database Management Systems</li>
                     </ul>

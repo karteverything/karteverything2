@@ -2,6 +2,7 @@ import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import Script from "next/script";
+import About from "@/components/About";
 
 export const metadata = {
     title: "KArt Everything",
@@ -13,7 +14,9 @@ export default function RootLayout({ children}) {
         <html lang="en">
             <body>
                 <Header />
+                
                 {children}
+                
                 <Footer />
 
                 <Script 

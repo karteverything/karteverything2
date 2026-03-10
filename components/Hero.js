@@ -6,8 +6,8 @@ export default function Hero() {
 
         <p id="home-intro">
           This is where I blend my passions - nature through photography,
-          systems development, and a little bit of everything else.
-          <span className="blue-gradient-text">
+          systems development, and a little bit of everything else. 
+          <span className="blue-gradient-text">{" "}
             Welcome to my journal!
           </span>
         </p>
