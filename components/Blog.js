@@ -19,7 +19,7 @@ const posts = [
     {
         title: "Engineering Emotion: Why I love cars",
         snippet: "From roaring engines to sleek designs, cars aren't just machines.",
-        href: "/blog/engineering",
+        href: "/blog/cars",
     },
 ];
 
