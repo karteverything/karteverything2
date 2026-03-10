@@ -8,7 +8,7 @@ export default function PersonalGrowth() {
 
         <div className="dates-container">
           <p id="date">Published: 13-05-2025</p>
-          <p id="date">Last Edited: Mar 3, 2026</p>
+          <p id="date">Last Edited: Mar 10, 2026</p>
         </div>
 
         <article>
@@ -54,13 +54,15 @@ export default function PersonalGrowth() {
 
           <ol>
             <li>
-              <strong>Indigo Child</strong> — A dynamic version of KArt Everything
+              <strong>[Indigo Child ]</strong> <br />
+              A dynamic version of KArt Everything
               built with Next.js, focusing on scalability and modern
               architecture.
             </li>
 
             <li>
-              <strong>Sibitane Projects</strong> — A construction consulting
+              <strong>[ Sibitane Projects ]</strong> <br />
+              A construction consulting
               website designed for professionalism.
             </li>
           </ol>

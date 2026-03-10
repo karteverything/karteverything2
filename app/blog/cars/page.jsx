@@ -15,7 +15,7 @@ export default function Cars() {
                 <article>
 
                 <p>
-                    From roaring engines to sleek design, cars aren't just machines —
+                    From roaring engines to sleek design, cars aren't just machines -
                     they're reflections of passion, culture, and identity.
                 </p>
 
@@ -24,7 +24,7 @@ export default function Cars() {
                 <p>
                     Each curve tells a story. From the aerodynamic grace of a supercar
                     to the rugged lines of an off-roader, design choices reveal purpose
-                    and personality. They're not simply about performance — they're
+                    and personality. They're not simply about performance - they're
                     emotional blueprints that spark desire, nostalgia, even rebellion.
                 </p>
 
@@ -33,7 +33,7 @@ export default function Cars() {
                 <p>
                     More than transport, cars are time capsules. They're reminders of
                     family road trips, late-night drives, or the first moment you felt
-                    freedom behind the wheel. We don't just build them — we build
+                    freedom behind the wheel. We don't just build them - we build
                     around them: communities, memories, dreams.
                 </p>
 

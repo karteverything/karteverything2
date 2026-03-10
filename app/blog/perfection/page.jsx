@@ -11,7 +11,7 @@ export default function Perfection() {
 
                 <article>
                 <p>
-                    They say perfection is a sickness — but maybe it's just love,
+                    They say perfection is a sickness - but maybe it's just love,
                     expressed with precision, a desire that makes us more attentive,
                     not obsessive.
                 </p>
@@ -20,7 +20,7 @@ export default function Perfection() {
 
                 <p>
                     Perfection isn't about control; it's about care. The kind of care
-                    that shows up in the smallest of details — the second pass on a
+                    that shows up in the smallest of details - the second pass on a
                     paragraph, the extra five minutes spent aligning a design, the
                     quiet discipline of someone who chooses patience over shortcuts.
                 </p>
@@ -29,7 +29,7 @@ export default function Perfection() {
 
                 <p>
                     In engineering, we test, break, and rebuild. Iteration is not
-                    failure — it's fidelity to improvement. Every version brings us
+                    failure - it's fidelity to improvement. Every version brings us
                     closer not just to functionality, but to harmony. This mindset
                     applies well beyond machines; it touches art, relationships,
                     and even self-growth.
