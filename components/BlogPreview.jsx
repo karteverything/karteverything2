@@ -14,11 +14,11 @@ export default function BlogPreview() {
                 <div className="blog-grid">
 
                     {posts.map((post) => (
-                        <div className="blog-card" key={post.href}>
+                        <div className="blog-card" key={post.slug}>
                             <h3>{post.title}</h3>
                             <p className="blog-snippet">{post.snippet}</p>
 
-                            <Link href={post.href} className="btn">
+                            <Link href={post.path} className="btn">
                                 Read More
                             </Link>
                         </div>
