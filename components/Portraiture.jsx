@@ -6,6 +6,11 @@ import supabase from "@/lib/supabase";
 export default function Portraiture() {
   const [images, setImages] = useState([]);
 
+  // shuffle images
+  function shuffle(array) {
+    return [...array].sort(() => Math.random() - 0.5);
+  }
+
   useEffect(() => {
     async function fetchImages() {
       const { data, error } = await supabase
@@ -16,7 +21,8 @@ export default function Portraiture() {
       if (error) {
         console.error(error);
       } else {
-        setImages(data);
+        const shuffledImages = shuffle(data);
+        setImages(shuffledImages(data));
       }
     }
 
