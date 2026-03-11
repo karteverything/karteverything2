@@ -1,3 +1,6 @@
+import Slideshow from "../components/Slideshow";
+import Portraiture from "../components/Portraiture";
+
 export default function Gallery() {
     return (
         <section id="portraiture" className="gallery">
@@ -9,11 +12,9 @@ export default function Gallery() {
                     photos to remember how thing felt - the laughter, the stillness
                     the golden light before sunsets. Nature's quiet masterpieces!
                 </p>
-                
-                {/*}
-                <Slideshow />
+
+                {/*}<Slideshow />{*/}
                 <Portraiture />
-                {*/}
             </div>
         </section>
     );
