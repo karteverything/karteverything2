@@ -21,8 +21,8 @@ export default function Portraiture() {
       if (error) {
         console.error(error);
       } else {
-        const shuffledImages = shuffle(data);
-        setImages(shuffledImages(data));
+        //const shuffledImages = shuffle(data);
+        setImages(shuffle(data));
       }
     }
 
