@@ -3,24 +3,22 @@ import { blogPosts } from "../../data/blogPosts";
 
 export default function BlogPage() {
     return (
-        <section className="blog-list container">
-            <h1>Blog</h1>
+        <section className="blog-container container">
+            <div className="blog-title">
+                <h2>Blog</h2>
+                <p>Thoughts, tutorials, insights, and stories behind my work.</p>
+            </div>
 
-            {blogPosts.map((post) => (
-                <article key={post.slug} className="blog-list-item">
-
-                    <h2>{post.title}</h2>
-                    <p>{post.snippet}</p>
-
-                    <p className="blog-date">
-                        Published: {post.published}
-                    </p>
-
-                    <Link href={post.path} className="btn">
-                        Read Article 
-                    </Link>
-                </article>
-            ))}
+            <div className="blog-grid">
+                {blogPosts.map((post) => (
+                <div key={post.slug} className="blog-card">
+                    <h3>{post.title}</h3>
+                    <p className="blog-snippet">{post.snippet}</p>
+                    <p className="blog-date">Published: {post.published}</p>
+                    <Link href={post.path} className="btn">Read Article</Link>
+                </div>
+                ))}
+            </div>
         </section>
     );
 }

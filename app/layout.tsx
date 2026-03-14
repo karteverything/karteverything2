@@ -8,7 +8,7 @@ export const metadata = {
     description: "Kat's portfolio and journal",
 };
 
-export default function RootLayout({ children}) {
+export default function RootLayout({ children }) {
     return (
         <html lang="en">
             <body>

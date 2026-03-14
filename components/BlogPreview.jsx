@@ -10,7 +10,7 @@ export default function BlogPreview() {
                     <h2>Latest Blog Posts</h2>
                     <p>Thoughts, tutorials, insight, and stories behind my work.</p>
                 </div>
-
+                
                 <div className="blog-grid">
 
                     {blogPosts.map((post) => (
