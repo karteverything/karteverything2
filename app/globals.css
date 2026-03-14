@@ -169,7 +169,7 @@ nav a:hover {
     display: flex;
     justify-content:flex-start;
     align-items: center;
-    /*background-image: url(bg-1.jpg);*/
+    background-image: url(../public/bg_image.jpg);
     background-attachment: scroll;
     background-repeat: no-repeat;
     background-position: center;
