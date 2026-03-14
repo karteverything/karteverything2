@@ -1,5 +1,10 @@
 import Header from "../components/Header";
 import Footer from "../components/Footer";
+import About from "./about/page";
+import Services from "./services/page";
+import Gallery from "./portraiture/page";
+import BlogPreview from "./blog/page";
+import Contact from "./contact/page";
 
 export default function Home() {
   return (
@@ -18,6 +23,12 @@ export default function Home() {
 
         </div>
       </section>
+
+      <About />
+      <Services />
+      <Gallery />
+      <BlogPreview />
+      <Contact />
     </>
   );
 }
