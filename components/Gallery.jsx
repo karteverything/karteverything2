@@ -1,4 +1,3 @@
-import Slideshow from "../components/Slideshow";
 import Portraiture from "../components/Portraiture";
 
 export default function Gallery() {
@@ -13,7 +12,6 @@ export default function Gallery() {
                     the golden light before sunsets. Nature's quiet masterpieces!
                 </p>
 
-                {/*}<Slideshow />{*/}
                 <Portraiture />
             </div>
         </section>
