@@ -29,7 +29,7 @@ export default function About() {
                 </div>
 
                 <div className="column bottom resume">
-                    <h3>Resume</h3>
+                    <h3>Get In Touch</h3>
                     <p>Interested in working together?</p>
                     <a href="#contact" className="btn">Contact Me</a>
                 </div>
