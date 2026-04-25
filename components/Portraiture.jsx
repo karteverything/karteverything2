@@ -42,6 +42,7 @@ export default function Portraiture() {
               src={img.image_url}
               alt={img.title ?? ""}
               loading="lazy"
+              decoding="async"
             />
             <div className="caption">
               {img.title || ""}
