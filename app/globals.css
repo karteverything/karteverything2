@@ -122,6 +122,12 @@ nav a:hover {
     text-decoration: none;
     color: var(--text-main);
     cursor: pointer;
+
+    background: transparent;   /* removes white box */
+    border: none;              /* removes border */
+    outline: none;             /* optional: removes focus outline */
+    padding: 0;                /* removes extra spacing */
+    line-height: 1;            /* keeps × tight */
 }
 
 .curtain-content {
