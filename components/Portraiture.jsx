@@ -4,12 +4,12 @@ import { useEffect, useState } from "react";
 import supabase from "@/lib/supabase";
 
 // fisher-yates shuffle helper
-function shuffle(array) {
+function shuffle(arr) {
   const array = [...arr];
 
-  for (let i = array.length - 1; i > 0; i--) {
+  for (let i = arr.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
-    [array[i], array[j]] = [array[j], array[i]];
+    [arr[i], arr[j]] = [arr[j], arr[i]];
   }
 
   return array;
@@ -38,7 +38,17 @@ export default function Portraiture() {
     fetchImages();
   }, []);
 
-  if (!images.length) return <p>Loading gallery...</p>;
+  if (!images.length) {
+    return (
+      <div className="gallery-grid skeleton-grid">
+        {Array.from({ length: 8 }).map((_, i) => (
+          <div key={i} className="grid-item">
+            <div className="image-skeleton"></div>
+          </div>
+        ))}
+      </div>
+    );
+  } 
 
   return (
     <div className="gallery-grid">
