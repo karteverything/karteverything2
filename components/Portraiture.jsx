@@ -3,25 +3,27 @@
 import { useEffect, useState } from "react";
 import supabase from "@/lib/supabase";
 
+// shuffle helper (same logic as your JS)
+function shuffle(array) {
+  return [...array].sort(() => Math.random() - 0.5);
+}
+
 export default function Portraiture() {
   const [images, setImages] = useState([]);
-
-  // shuffle images
-  function shuffle(array) {
-    return [...array].sort(() => Math.random() - 0.5);
-  }
 
   useEffect(() => {
     async function fetchImages() {
       const { data, error } = await supabase
         .from("portraits")
         .select("*")
-        .order("created_at", { ascending: false });
+        .order("id", { ascending: false });
 
       if (error) {
-        console.error(error);
-      } else {
-        //const shuffledImages = shuffle(data);
+        console.error("Error loading images:", error.message);
+        return;
+      }
+
+      if (data?.length) {
         setImages(shuffle(data));
       }
     }
@@ -34,8 +36,17 @@ export default function Portraiture() {
   return (
     <div className="gallery-grid">
       {images.map((img) => (
-        <div key={img.id} className="gallery-item">
-          <img src={img.image_url} alt={img.title || ""} />
+        <div key={img.id} className="grid-item">
+          <div className="image-wrapper">
+            <img
+              src={img.image_url}
+              alt={img.title || ""}
+              loading="lazy"
+            />
+            <div className="caption">
+              {img.title || ""}
+            </div>
+          </div>
         </div>
       ))}
     </div>
