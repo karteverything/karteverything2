@@ -689,14 +689,13 @@ ul {
 }
 
 .blog-section {
-    padding: 60px 20px;
-    /*scroll-margin-top: 70px;*/
+    padding: 50px 20px;
 }
   
 .blog-container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 1rem;
+    /*max-width: 1200px;
+    margin: 0 auto;*/
+    padding: 0;
 }
 
 .blog-post-containter {
