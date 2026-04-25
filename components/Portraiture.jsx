@@ -17,6 +17,7 @@ function shuffle(arr) {
 
 export default function Portraiture() {
   const [images, setImages] = useState([]);
+  const [loadedImages, setLoadedImages] = useState({});
 
   useEffect(() => {
     async function fetchImages() {
@@ -38,6 +39,13 @@ export default function Portraiture() {
     fetchImages();
   }, []);
 
+  const handleImageLoad = (id) => {
+    setLoadedImages((prev) => ({
+      ...prev,
+      [id]: true,
+    }));
+  }
+
   if (!images.length) {
     return (
       <div className="gallery-grid skeleton-grid">
@@ -53,16 +61,26 @@ export default function Portraiture() {
   return (
     <div className="gallery-grid">
       {images.map((img) => (
-        <div key={img.id} className="grid-item">
+        <div 
+          key={img.id} 
+          className="grid-item"
+          style={{ animationDelay: `${index * 70}ms` }}
+          >
+
           <div className="image-wrapper">
+            {!loadedImages[img.id] && <div className="image-skeleton"></div>}
+
             <img
               src={img.image_url}
               alt={img.title ?? ""}
               loading="lazy"
               decoding="async"
+              onLoad={() => handleImageLoad(img.id)}
+              className={loadedImages[img.id] ? "loaded" : ""}
             />
+
             <div className="caption">
-              {img.title || ""}
+              {img.title ?? ""}
             </div>
           </div>
         </div>
