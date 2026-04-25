@@ -1218,6 +1218,7 @@ input[type=text], textarea {
     }
 
     .contact-title h2 {
+        font-size: 1.3rem;
         margin-bottom: 2rem;
     }
 
@@ -1247,7 +1248,7 @@ input[type=text], textarea {
     }
 
     .contact-title p {
-        font-size: 0.9rem;
+        font-size: 1rem;
         margin-bottom: 30px;
     }
 
@@ -1259,6 +1260,10 @@ input[type=text], textarea {
     .contact-form input,
     .contact-form textarea {
         padding: 0.35rem;
+    }
+
+    .contact-right p {
+        font-size: 0.9rem;
     }
 }
 
