@@ -1,6 +1,6 @@
 "use client"; // for useState and client-side form
 
-import { FaEnvelope, FaPhone, FaMapMarkerAlt } from "react-icons/fa";
+import { FaEnvelope, FaPhone, FaMapMarkerAlt, FaGithub, FaLinkedin } from "react-icons/fa";
 
 import { useState } from "react";
 import emailjs from "@emailjs/browser";
@@ -113,16 +113,29 @@ export default function Contact() {
                         <FaMapMarkerAlt />
                         <span>Pretoria, Gauteng</span>
                     </p>
-                    
+
                     <div className="social-icons">
                         <h3>Follow Me</h3>
                         <ul>
-                            <a href="https://github.com/karteverything" target="_blank" rel="noopener noreferrer">
-                                <li><i className="fa-brands fa-github"></i></li>
-                            </a>
-                            <a href="http://www.linkedin.com/in/karteverything" target="_blank" rel="noopener noreferrer">
-                                <li><i className="fa-brands fa-linkedin"></i></li>
-                            </a>
+                            <li>
+                                <a 
+                                    href="https://github.com/karteverything" 
+                                    target="_blank" 
+                                    rel="noopener noreferrer"
+                                >
+                                    <FaGithub />
+                                </a>
+                            </li>
+
+                            <li>
+                                <a 
+                                    href="https://www.linkedin.com/in/karteverything" 
+                                    target="_blank" 
+                                    rel="noopener noreferrer"
+                                >
+                                    <FaLinkedin />
+                                </a>
+                            </li>
                         </ul>
                     </div>
                 </div>
