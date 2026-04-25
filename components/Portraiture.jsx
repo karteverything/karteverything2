@@ -40,7 +40,7 @@ export default function Portraiture() {
           <div className="image-wrapper">
             <img
               src={img.image_url}
-              alt={img.title || ""}
+              alt={img.title ?? ""}
               loading="lazy"
             />
             <div className="caption">
