@@ -1,5 +1,7 @@
 "use client"; // for useState and client-side form
 
+import { FaEnvelope, FaPhone, FaMapMarkerAlt } from "react-icons/fa";
+
 import { useState } from "react";
 import emailjs from "@emailjs/browser";
 import toast, { Toaster } from "react-hot-toast";
@@ -97,10 +99,21 @@ export default function Contact() {
                 {/* right */}
                 <div className="contact-right">
                     <h3>Contact Info</h3>
-                    <p><i className="fa-solid fa-envelope"></i><span>karteverything@proton.me</span></p>
-                    <p><i className="fa-solid fa-phone"></i><span>+27753586562</span></p>
-                    <p><i className="fa-solid fa-location-dot"></i><span>Pretoria, Gauteng</span></p>
+                    <p>
+                        <FaEnvelope />
+                        <span>karteverything@proton.me</span>
+                    </p>
 
+                    <p>
+                        <FaPhone />
+                        <span>+27753586562</span>
+                    </p>
+
+                    <p>
+                        <FaMapMarkerAlt />
+                        <span>Pretoria, Gauteng</span>
+                    </p>
+                    
                     <div className="social-icons">
                         <h3>Follow Me</h3>
                         <ul>
