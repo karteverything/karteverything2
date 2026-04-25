@@ -169,7 +169,7 @@ nav a:hover {
     display: flex;
     justify-content:flex-start;
     align-items: center;
-    background-image: url(../public/bg_image.jpg);
+    /*background-image: url(../public/bg_image.jpg);*/
     background-attachment: scroll;
     background-repeat: no-repeat;
     background-position: center;
@@ -454,7 +454,8 @@ ul {
 .icon {
   font-size: 30px;
   color: #5c5c5c;
-  margin: 20px 0;
+  margin: 10px 0;
+  text-align: left;
 }
 
 .details h3 {
