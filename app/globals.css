@@ -669,12 +669,12 @@ ul {
         /*padding-bottom: 10px;*/
     }
 
-    .gallery-title h2 {
-        font-size: 1rem;
+    .gallery-title.container h2 {
+        font-size: 1.3rem;
     }
 
-    .gallery-title p {
-        font-size: 0.85rem;
+    .gallery-title.container p {
+        font-size: 1rem;
     }
 
     .slideshow-container {
