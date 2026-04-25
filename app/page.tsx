@@ -1,5 +1,3 @@
-import Header from "../components/Header";
-import Footer from "../components/Footer";
 import About from "./about/page";
 import Services from "./services/page";
 import Gallery from "./portraiture/page";
@@ -9,7 +7,10 @@ import Contact from "./contact/page";
 export default function Home() {
   return (
     <>
-      <section className="hero" id="home">
+      <section className="hero" id="home"
+
+        style={{ height: '100vh', backgroundImage: "url('/bg_image.jpg')", backgroundSize: 'cover', backgroundPosition: 'center', }}
+      >
         <div className="container">
           <h1>Hi, It's Kat</h1>
 
