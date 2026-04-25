@@ -60,7 +60,7 @@ export default function Portraiture() {
 
   return (
     <div className="gallery-grid">
-      {images.map((img) => (
+      {images.map((img, index) => (
         <div 
           key={img.id} 
           className="grid-item"
