@@ -1,4 +1,5 @@
 "use client";
+import { FaBars } from "react-icons/fa";
 
 import { useState } from 'react';
 import Link from 'next/link';
@@ -39,7 +40,7 @@ export default function Navbar() {
       </div>
 
       <div className="menu-icons" onClick={toggleMenu}>
-        <span className="material-symbols-outlined">menu</span>
+        <FaBars />
       </div>
     </header>
   );
