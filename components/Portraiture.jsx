@@ -3,9 +3,16 @@
 import { useEffect, useState } from "react";
 import supabase from "@/lib/supabase";
 
-// shuffle helper (same logic as your JS)
+// fisher-yates shuffle helper
 function shuffle(array) {
-  return [...array].sort(() => Math.random() - 0.5);
+  const array = [...arr];
+
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+
+  return array;
 }
 
 export default function Portraiture() {
