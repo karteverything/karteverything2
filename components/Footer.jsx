@@ -1,15 +1,22 @@
-export default function Footer() {
-    const formattedDate = new Date().toString().split(" GMT")[0];
+"use client"
+import { useState, useEffect } from "react";
 
+export default function Footer() {
+    const[date, setDate] = useState("");
+
+    useEffect(() => {
+        setDate(new Date().toString().split(" GMT")[0]);
+    });
+    
     return (
         <footer className="footer-container">
             <div className="bottom-bar">
 
-                <a href="">
+                <a href="/admin">
                     &copy; KArt Everything
                 </a>
 
-                <p>{formattedDate}</p>
+                <p>{date}</p>
             </div>
         </footer>
     );
