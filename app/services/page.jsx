@@ -1,16 +1,18 @@
+import { FaCode, FaDesktop, FaTools } from "react-icons/fa";
+
 const services = [
     {
-        icon: "fas fa-code",
+        icon: <FaCode />,
         title: "Web Developement",
         description: "Custom websites built with care - clean, responsive, and user-friendly.",
     },
     {
-        icon: "fas fa-desktop",
+        icon: <FaDesktop />,
         title: "Troubleshooting",
         description: "Diagnosing and fixing hardware or software issues so your system runs smoothly.",
     },
     {
-        icon: "fas fa-tools",
+        icon: <FaTools />,
         title: "Other Services",
         description: "Custom tech consultions and small digital support solutions.",
     },
@@ -30,7 +32,7 @@ export default function Services() {
                 <div className="box" key={index}>
 
                     <div className="icon">
-                        <i className={service.icon}></i>
+                        {service.icon}
                     </div>
 
                     <div className="details">
