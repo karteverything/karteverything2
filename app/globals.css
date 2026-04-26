@@ -676,14 +676,14 @@ ul {
 
     .gallery-grid {
         column-count: 2;   /* ← exactly 2 frames */
-        column-gap: 8px;
+        column-gap: 12px;
         width: 100%;
         margin-top: 20px;
         max-width: 100%;
     }
 
     .grid-item {
-        margin-bottom: 8px;
+        margin-bottom: 12px;
     }
 
     .image-wrapper,
