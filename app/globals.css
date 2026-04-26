@@ -500,7 +500,7 @@ ul {
   }
 
   .details h3 {
-    font-size: 1rem;
+    font-size: 1.1rem;
   }
 }
 
@@ -653,7 +653,9 @@ ul {
 /* mobile */
 @media (max-width: 768px) {
     #portraiture.gallery {
-        display: inline-block;
+        display: block;
+        padding: 70px 8px;
+        width: 100%;
     }
 
     .gallery-title {
@@ -661,11 +663,11 @@ ul {
     }
 
     .gallery-title h2 {
-        font-size: 1rem;
+        font-size: 1.3rem;
     }
 
     .gallery-title p {
-        font-size: 0.85rem;
+        font-size: 1rem;
     }
 
     .caption {
@@ -674,11 +676,20 @@ ul {
 
     .gallery-grid {
         column-count: 2;   /* ← exactly 2 frames */
-        column-gap: 12px;
+        column-gap: 8px;
+        width: 100%;
+        margin-top: 20px;
+        max-width: 100%;
     }
 
     .grid-item {
-        margin-bottom: 12px;
+        margin-bottom: 8px;
+    }
+
+    .image-wrapper,
+    .image-wrapper img,
+    .image-skeleton {
+        border-radius: 8px;
     }
 }
 
