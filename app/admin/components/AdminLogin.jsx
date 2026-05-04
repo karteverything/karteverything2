@@ -1,8 +1,9 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { supabase } from "@/lib/supabaseClient";
+import useLockout from "@/hooks/useLockout";
 
 export default function AdminLogin() {
   const [email, setEmail] = useState("");
@@ -10,7 +11,21 @@ export default function AdminLogin() {
   const [msg, setMsg] = useState("");
   const router = useRouter();
 
+  const { locked, lockUntil, registerFailure, clearLock } = useLockout();
+
+  useEffect(() => {
+    supabase.auth.getSession().then(({ data }) => {
+      if(data.session) router.push("/admin/dashboard");
+    });
+  }, []);
+
   const handleLogin = async () => {
+    if(locked) {
+      const remain = Math.ceil((lockUntil - Date.now()) / 1000);
+      setMsg(`Locked. Try again in ${remain}s`);
+      return;
+    }
+
     setMsg("Logging in...");
 
     const { data, error } = await supabase.auth.signInWithPassword({
@@ -19,10 +34,12 @@ export default function AdminLogin() {
     });
 
     if (error) {
+      registerFailure();
       setMsg(error.message);
       return;
     }
 
+    clearLock();
     router.push("/admin/dashboard");
   };
 
