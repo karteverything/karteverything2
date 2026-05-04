@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { supabase } from "@/lib/supabaseClient";
-import useLockout from "@/hooks/useLockout";
+import useLockout from "../hooks/useLockout";
 
 export default function AdminLogin() {
   const [email, setEmail] = useState("");
