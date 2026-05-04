@@ -654,7 +654,7 @@ ul {
 @media (max-width: 768px) {
     #portraiture.gallery {
         display: block;
-        padding: 70px 8px;
+        padding: 70px 0;
         width: 100%;
     }
 
