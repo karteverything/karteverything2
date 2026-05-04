@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { supabase } from "@/lib/supabaseClient";
+import supabase from "@/lib/supabaseClient";
 import useLockout from "../hooks/useLockout";
 
 export default function AdminLogin() {
@@ -15,7 +15,7 @@ export default function AdminLogin() {
 
   useEffect(() => {
     supabase.auth.getSession().then(({ data }) => {
-      if(data.session) router.push("/admin/dashboard");
+      if (data.session) router.push("/admin/dashboard");
     });
   }, []);
 
