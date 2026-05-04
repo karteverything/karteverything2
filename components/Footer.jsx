@@ -12,7 +12,7 @@ export default function Footer() {
         <footer className="footer-container">
             <div className="bottom-bar">
 
-                <a href="">
+                <a href="/admin">
                     &copy; KArt Everything
                 </a>
 
