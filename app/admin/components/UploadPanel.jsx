@@ -79,7 +79,7 @@ export default function UploadPanel() {
             <div className="form-row">
                 <input 
                     type="file"
-                    onChange={{handleFile}}
+                    onChange={handleFile}
                 />
             </div>
 
