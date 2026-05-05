@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { stripImageMetadata} from "@/lib/metadataStripper";
-import { supabase } from "@/lib/supbaseClient";
+import supabase from "../../../lib/supabaseClient";
 
 export default function UploadPanel() {
     const [title, setTitle] = useState("");
