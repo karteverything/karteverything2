@@ -11,7 +11,7 @@ export default function SessionGuard({ children }) {
     useAutoLogout();
 
     useEffect(() => {
-        supabase.auth.session.then(({ data }) => {
+        supabase.auth.getSession().then(({ data }) => {
             if(!data.session) {
                 router.push("/admin");
             }
