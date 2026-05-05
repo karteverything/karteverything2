@@ -7,7 +7,7 @@ import { clearTimeout } from "timers";
 
 export default function useAutoLogout() {
     const router = useRouter();
-    const AUTO_LOGOUT_TIME = 30 * 60 * 1000;
+    const AUTO_LOGOUT_TIME = 15 * 60 * 1000; // 15 minutes
 
     useEffect(() => {
         let logoutTimer;
