@@ -44,7 +44,7 @@ export default function UploadPanel() {
             formData.append("title", title);
 
             const res = await fetch("/api/upload", {
-                method = "POST",
+                method: "POST",
                 body: formData,
             });
 
