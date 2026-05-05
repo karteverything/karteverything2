@@ -1,6 +1,6 @@
 import UploadPanel from "../components/UploadPanel";
-import PortraitGallery from "@/components/admin/PortraitGallery";
-import SessionGuard from "@/components/admin/SessionGuard";
+import PortraitGallery from "../components/PortraitGallery";
+import SessionGuard from "../components/SessionGuard";
 
 export default function Dashboard() {
   return (
