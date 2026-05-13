@@ -8,14 +8,14 @@ export default function AdminPage() {
   const [session, setSession] = useState(null);
   const [loadingSession, setLoadingSession] = useState(true);
 
-  // Login & Lockout State
+  // Login State
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loginMsg, setLoginMsg] = useState('');
   const [isLocked, setIsLocked] = useState(false);
   const [lockTimeLeft, setLockTimeLeft] = useState(0);
 
-  // Upload Portal State
+  // Upload State
   const [title, setTitle] = useState('');
   const [file, setFile] = useState(null);
   const [previewUrl, setPreviewUrl] = useState('');
@@ -26,28 +26,48 @@ export default function AdminPage() {
   const [gallery, setGallery] = useState([]);
   const [selectedImages, setSelectedImages] = useState([]);
 
-  // --- 1. Session & Auto-Logout Logic ---
+  // --- Session & Lockout Management ---
   useEffect(() => {
-    const checkSession = async () => {
-      const { data } = await supabase.auth.getSession();
-      if (data.session) {
-        setSession(data.session);
-        loadGallery();
-      }
-      setLoadingSession(false);
-    };
-
-    checkSession();
-
-    // Check Lockout on load
+    // Check Lockout
     const lockUntil = parseInt(localStorage.getItem('lockUntil')) || 0;
     if (Date.now() < lockUntil) {
       setIsLocked(true);
-      setLockTimeLeft(Math.ceil((lockUntil - Date.now()) / 1000));
+      const remaining = Math.ceil((lockUntil - Date.now()) / 1000);
+      setLockTimeLeft(remaining);
     }
+
+    // Check Session
+    supabase.auth.getSession().then(({ data }) => {
+      if (data.session) {
+        const sessionStart = parseInt(localStorage.getItem('sessionStart')) || 0;
+        const now = Date.now();
+        const MAX_SESSION_AGE = 30 * 60 * 1000; // 30 mins
+
+        if (sessionStart && now - sessionStart > MAX_SESSION_AGE) {
+          handleLogout();
+        } else {
+          if (!sessionStart) localStorage.setItem('sessionStart', Date.now().toString());
+          setSession(data.session);
+          loadGallery();
+        }
+      }
+      setLoadingSession(false);
+    });
+
+    // Auto Logout Timer Events
+    const resetTimer = () => {
+      if (data?.session) {
+        // Implementation of auto-logout logic can be added here
+      }
+    };
+    const events = ['click', 'mousemove', 'keydown', 'scroll', 'touchstart'];
+    events.forEach((evt) => document.addEventListener(evt, resetTimer));
+
+    return () => {
+      events.forEach((evt) => document.removeEventListener(evt, resetTimer));
+    };
   }, []);
 
-  // Lockout Timer
   useEffect(() => {
     let interval;
     if (isLocked && lockTimeLeft > 0) {
@@ -56,6 +76,8 @@ export default function AdminPage() {
           if (prev <= 1) {
             setIsLocked(false);
             localStorage.removeItem('lockUntil');
+            localStorage.removeItem('failedAttempts');
+            setLoginMsg('');
             return 0;
           }
           return prev - 1;
@@ -65,23 +87,34 @@ export default function AdminPage() {
     return () => clearInterval(interval);
   }, [isLocked, lockTimeLeft]);
 
-  // --- 2. Auth Handlers ---
+  // --- Handlers ---
   const handleLogin = async () => {
     if (isLocked) return;
+    if (!email || !password) {
+      setLoginMsg('Please enter both email and password.');
+      setTimeout(() => setLoginMsg(''), 3000);
+      return;
+    }
+
+    setLoginMsg('Logging in...');
     const { data, error } = await supabase.auth.signInWithPassword({ email, password });
 
     if (error) {
-      let attempts = (parseInt(localStorage.getItem('failedAttempts')) || 0) + 1;
-      localStorage.setItem('failedAttempts', attempts);
+      let attempts = parseInt(localStorage.getItem('failedAttempts')) || 0;
+      attempts++;
+      localStorage.setItem('failedAttempts', attempts.toString());
       setLoginMsg(`Login failed: ${error.message}`);
+
       if (attempts >= 3) {
-        const lockUntil = Date.now() + 60000;
-        localStorage.setItem('lockUntil', lockUntil);
+        const lockTime = Date.now() + 60 * 1000;
+        localStorage.setItem('lockUntil', lockTime.toString());
         setIsLocked(true);
         setLockTimeLeft(60);
       }
     } else {
       localStorage.removeItem('failedAttempts');
+      localStorage.removeItem('lockUntil');
+      localStorage.setItem('sessionStart', Date.now().toString());
       setSession(data.session);
       loadGallery();
     }
@@ -89,18 +122,21 @@ export default function AdminPage() {
 
   const handleLogout = async () => {
     await supabase.auth.signOut();
+    localStorage.removeItem('sessionStart');
     setSession(null);
     setGallery([]);
+    setEmail('');
+    setPassword('');
   };
 
-  // --- 3. Upload & Image Logic ---
   const handleFileChange = (e) => {
     const selectedFile = e.target.files[0];
-    if (selectedFile) {
-      setFile(selectedFile);
-      if (previewUrl) URL.revokeObjectURL(previewUrl); // Clean up memory
-      setPreviewUrl(URL.createObjectURL(selectedFile));
+    if (!selectedFile) {
+      clearPreview();
+      return;
     }
+    setFile(selectedFile);
+    setPreviewUrl(URL.createObjectURL(selectedFile));
   };
 
   const clearPreview = () => {
@@ -109,159 +145,252 @@ export default function AdminPage() {
     if (fileInputRef.current) fileInputRef.current.value = '';
   };
 
-  const stripMetadata = async (file) => {
-    return new Promise((resolve) => {
-      const img = new Image();
-      img.src = URL.createObjectURL(file);
-      img.onload = () => {
-        const canvas = document.createElement('canvas');
-        canvas.width = img.width;
-        canvas.height = img.height;
-        const ctx = canvas.getContext('2d');
-        ctx.drawImage(img, 0, 0);
-        canvas.toBlob((blob) => {
-          resolve(new File([blob], `img-${Date.now()}.jpg`, { type: 'image/jpeg' }));
-        }, 'image/jpeg', 0.9);
-      };
-    });
+  const stripImageMetadata = async (originalFile) => {
+    const img = new Image();
+    img.src = URL.createObjectURL(originalFile);
+    await img.decode();
+
+    const canvas = document.createElement('canvas');
+    canvas.width = img.naturalWidth;
+    canvas.height = img.naturalHeight;
+
+    const ctx = canvas.getContext('2d');
+    ctx.drawImage(img, 0, 0);
+
+    const blob = await new Promise((resolve) => canvas.toBlob(resolve, 'image/jpeg', 0.9));
+    return new File([blob], `image-${Date.now()}.jpg`, { type: 'image/jpeg' });
   };
 
   const handleUpload = async () => {
-    if (!file || !title) return setUploadMsg('Title and image required.');
-    setUploadMsg('Uploading...');
+    if (!file || !title) {
+      setUploadMsg('Image and title required.');
+      setTimeout(() => setUploadMsg(''), 3000);
+      return;
+    }
 
+    setUploadMsg('Uploading...');
     try {
-      const cleanFile = await stripMetadata(file);
+      const cleanFile = await stripImageMetadata(file);
       const filePath = `portraits/${Date.now()}-${cleanFile.name}`;
-      
+
       const { error: storageError } = await supabase.storage.from('gallery').upload(filePath, cleanFile);
       if (storageError) throw storageError;
 
       const { data: urlData } = supabase.storage.from('gallery').getPublicUrl(filePath);
 
-      const { error: dbError } = await supabase.from('portraits').insert([
-        { title, image_url: urlData.publicUrl }
-      ]);
+      const { error: dbError } = await supabase.from('portraits').insert([{ title, image_url: urlData.publicUrl }]);
       if (dbError) throw dbError;
 
-      setUploadMsg('Success!');
-      setTitle('');
+      setUploadMsg('Image upload successful!');
+      setTimeout(() => setUploadMsg(''), 3000);
+
       clearPreview();
+      setTitle('');
       loadGallery();
     } catch (err) {
+      console.error(err);
       setUploadMsg('Upload failed.');
     }
   };
 
-  // --- 4. Gallery Logic ---
   const loadGallery = async () => {
-    const { data } = await supabase.from('portraits').select('*').order('id', { ascending: false });
-    setGallery(data || []);
+    try {
+      const { data, error } = await supabase.from('portraits').select('*').order('id', { ascending: false });
+      if (error) throw error;
+      // Shuffle logic
+      const shuffled = data.sort(() => Math.random() - 0.5);
+      setGallery(shuffled);
+      setSelectedImages([]);
+    } catch (err) {
+      console.error(err);
+    }
   };
 
-  const deleteSelected = async () => {
-    if (!confirm(`Delete ${selectedImages.length} images?`)) return;
+  const toggleSelectImage = (id) => {
+    setSelectedImages((prev) => (prev.includes(id) ? prev.filter((imgId) => imgId !== id) : [...prev, id]));
+  };
+
+  const handleDeleteSelected = async () => {
+    if (!window.confirm(`Delete ${selectedImages.length} image(s)?`)) return;
+
     for (const id of selectedImages) {
-      const item = gallery.find(g => g.id === id);
-      const fileName = item.image_url.split('/').pop();
-      await supabase.storage.from('gallery').remove([`portraits/${fileName}`]);
-      await supabase.from('portraits').delete().eq('id', id);
+      const item = gallery.find((g) => g.id === id);
+      if (item) {
+        const fileName = item.image_url.split('/').pop();
+        const filePath = `portraits/${fileName}`;
+        await supabase.storage.from('gallery').remove([filePath]);
+        await supabase.from('portraits').delete().eq('id', id);
+      }
     }
-    setSelectedImages([]);
     loadGallery();
   };
 
-  if (loadingSession) return <div className="admin-wrapper">Loading Admin Portal...</div>;
+  if (loadingSession) return <div style={{ textAlign: 'center', padding: '50px' }}>Loading...</div>;
 
   return (
     <div className="admin-wrapper">
       {!session ? (
-        /* LOGIN CARD */
         <section className="card">
           <h1 className="brand">Portraiture Admin</h1>
           <div className="user-input">
-            <input type="email" placeholder="Email" value={email} onChange={e => setEmail(e.target.value)} className="form-row" />
-            <input type="password" placeholder="Password" value={password} onChange={e => setPassword(e.target.value)} className="form-row" />
+            <div className="form-row">
+              <input
+                type="email"
+                placeholder="Email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                autoComplete="username"
+              />
+            </div>
+            <div className="form-row">
+              <input
+                type="password"
+                placeholder="Password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
+            </div>
           </div>
-          <button className="btn" onClick={handleLogin} disabled={isLocked} style={{ width: '100%' }}>
-            {isLocked ? `Locked (${lockTimeLeft}s)` : 'Log in'}
-          </button>
-          <p className="muted">{loginMsg}</p>
+          <div className="form-row">
+            <button
+              className="btn"
+              style={{ width: '100%', backgroundColor: '#5a5a5a' }}
+              onClick={handleLogin}
+              disabled={isLocked}
+            >
+              {isLocked ? `Locked (${lockTimeLeft}s)` : 'Log in'}
+            </button>
+          </div>
+          <p className="muted" style={{ color: isLocked ? '#ef4444' : 'inherit' }}>
+            {loginMsg}
+          </p>
         </section>
       ) : (
         <>
-          {/* RESTYLED UPLOAD PORTAL CARD */}
-          <section className="card upload-portal-card" style={{ paddingTop: 0 }}>
-            <div className="portal-header-gradient">
-              <h2>Image Upload Portal</h2>
-              <p style={{ fontSize: '0.8rem', opacity: 0.8, marginTop: '8px' }}>Add a new portrait to the gallery</p>
+          <section className="card" style={{ paddingTop: 0 }}>
+            <h2 className="upload">Image Upload Portal</h2>
+            <div className="form-row">
+              <input type="text" placeholder="Image title" value={title} onChange={(e) => setTitle(e.target.value)} />
             </div>
 
-            <div style={{ padding: '0 10px' }}>
-              <div className="portal-input-group">
-                <input type="text" placeholder="Image title..." value={title} onChange={e => setTitle(e.target.value)} />
-              </div>
-
-              {!previewUrl ? (
-                <div 
-                  className="drop-zone"
-                  onClick={() => fileInputRef.current.click()}
-                  onDragOver={e => { e.preventDefault(); e.currentTarget.classList.add('active'); }}
-                  onDragLeave={e => e.currentTarget.classList.remove('active')}
-                  onDrop={e => {
-                    e.preventDefault();
-                    setFile(e.dataTransfer.files[0]);
-                    setPreviewUrl(URL.createObjectURL(e.dataTransfer.files[0]));
-                  }}
-                >
-                  <div className="drop-zone-text">
-                    <p><strong>Click to upload</strong> or drag and drop</p>
-                  </div>
-                  <input type="file" ref={fileInputRef} onChange={handleFileChange} style={{ display: 'none' }} accept="image/*" />
-                </div>
-              ) : (
-                <div className="preview-thumbnail-wrapper">
-                  <img src={previewUrl} alt="Preview" style={{ width: '100%' }} />
-                  <button className="remove-preview-btn" onClick={clearPreview}>&times;</button>
-                </div>
+            <div className="form-row">
+              <label htmlFor="image" className="file-label">
+                <span>Choose Image</span>
+              </label>
+              <input
+                id="image"
+                type="file"
+                accept="image/*"
+                ref={fileInputRef}
+                onChange={handleFileChange}
+                style={{ display: 'none' }}
+              />
+              {file && (
+                <button type="button" className="btn outline" id="clear-file" onClick={clearPreview}>
+                  Cancel
+                </button>
               )}
-
-              <button className="btn upload-action-btn" onClick={handleUpload} style={{ marginTop: '20px' }}>
-                Complete Upload
-              </button>
-              <button className="btn outline" onClick={handleLogout} style={{ width: '100%', border: 'none', marginTop: '10px' }}>
-                Sign Out
-              </button>
-              {uploadMsg && <p className="muted" style={{ textAlign: 'center' }}>{uploadMsg}</p>}
             </div>
+
+            {previewUrl && (
+              <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px' }}>
+                <img src={previewUrl} alt="Preview" style={{ maxWidth: '160px', borderRadius: '10px' }} />
+                <div style={{ fontSize: '0.9rem', opacity: 0.8 }}>{file?.name}</div>
+              </div>
+            )}
+
+            <div className="form-row action-row">
+              <button className="btn primary" onClick={handleUpload}>
+                Upload
+              </button>
+              <button className="btn outline" onClick={handleLogout}>
+                Logout
+              </button>
+            </div>
+            <p className="muted">{uploadMsg}</p>
           </section>
 
-          {/* GALLERY CARD */}
           <section className="card gallery-card">
             <div className="gallery-header">
               <h2>G A L L E R Y</h2>
-              <button className="danger-btn" onClick={deleteSelected} disabled={selectedImages.length === 0}>
+              <button
+                className="danger-btn"
+                disabled={selectedImages.length === 0}
+                onClick={handleDeleteSelected}
+              >
                 Delete Selected
               </button>
             </div>
             <div className="grid">
-              {gallery.map(item => (
-                <div key={item.id} className="portrait-card">
-                  <label className="select-box">
-                    <input 
-                      type="checkbox" 
-                      checked={selectedImages.includes(item.id)} 
-                      onChange={() => setSelectedImages(prev => prev.includes(item.id) ? prev.filter(i => i !== item.id) : [...prev, item.id])} 
-                    />
-                  </label>
-                  <img src={item.image_url} alt={item.title} />
-                  <h3>{item.title}</h3>
-                </div>
-              ))}
+              {gallery.length === 0 ? (
+                <p>No images found.</p>
+              ) : (
+                gallery.map((item) => (
+                  <GalleryItem
+                    key={item.id}
+                    item={item}
+                    isSelected={selectedImages.includes(item.id)}
+                    onSelect={() => toggleSelectImage(item.id)}
+                    onReload={loadGallery}
+                  />
+                ))
+              )}
             </div>
           </section>
         </>
       )}
+    </div>
+  );
+}
+
+// Sub-component for individual gallery cards to handle their own edit/delete state
+function GalleryItem({ item, isSelected, onSelect, onReload }) {
+  const [isEditing, setIsEditing] = useState(false);
+  const [editTitle, setEditTitle] = useState(item.title);
+
+  const handleSave = async () => {
+    if (!editTitle.trim()) return alert('Title cannot be empty.');
+    try {
+      await supabase.from('portraits').update({ title: editTitle }).eq('id', item.id);
+      setIsEditing(false);
+      onReload(); // Refresh parent gallery state
+    } catch (err) {
+      console.error(err);
+      alert('Failed to update title.');
+    }
+  };
+
+  return (
+    <div className="portrait-card">
+      <label className="select-box">
+        <input type="checkbox" className="select-checkbox" checked={isSelected} onChange={onSelect} />
+      </label>
+      <img src={item.image_url} alt={item.title} />
+
+      {isEditing ? (
+        <div style={{ width: '100%', marginBottom: '10px' }}>
+          <input
+            type="text"
+            className="edit-input"
+            style={{ width: '100%', boxSizing: 'border-box' }}
+            value={editTitle}
+            onChange={(e) => setEditTitle(e.target.value)}
+          />
+        </div>
+      ) : (
+        <h3>{item.title}</h3>
+      )}
+
+      <div className="card-actions">
+        {isEditing ? (
+          <>
+            <button className="save-btn" onClick={handleSave}>Save</button>
+            <button className="cancel-btn" onClick={() => setIsEditing(false)}>Cancel</button>
+          </>
+        ) : (
+          <button className="edit-btn" onClick={() => setIsEditing(true)}>Rename</button>
+        )}
+      </div>
     </div>
   );
 }
