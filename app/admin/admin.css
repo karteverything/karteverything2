@@ -60,8 +60,12 @@
   text-align: center;
   background-color: #9aa3b2;
   padding: 20px 5px;
-  /*margin: 20px 0 50px 0;*/
+  margin: 20px 0 50px 0;
   border-radius: 8px;
+}
+
+.user-input {
+  padding-bottom: 15px;
 }
 
 .form-row { 
@@ -77,8 +81,9 @@
   padding: 10px 12px;
   border-radius: 8px;
   border: 2px solid rgba(15,23,36,0.06);
-  font-size: 0.95rem;
+  font-size: 1rem;
   outline: none;
+  font-family: poppins, sans-serif;
 }
 
 .file-label {
