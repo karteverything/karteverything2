@@ -30,43 +30,82 @@ export default function AdminPage() {
   useEffect(() => {
     // check lockout
     const lockUntil = parseInt(localStorage.getItem('lockUntil')) || 0;
+
     if (Date.now() < lockUntil) {
       setIsLocked(true);
+
       const remaining = Math.ceil((lockUntil - Date.now()) / 1000);
       setLockTimeLeft(remaining);
     }
 
+    let inactivityTimer;
+
+    const INACTIVITY_LIMIT = 10 * 60 * 1000; // 10 mins
+    const MAX_SESSION_AGE = 10 * 60 * 1000; // 10 mins
+
+    // auto logout timer reset
+    const resetTimer = () => {
+      if (!session) return;
+
+      clearTimeout(inactivityTimer);
+
+      inactivityTimer = setTimeout(() => {
+        alert('Logged out due to inactivity.');
+        handleLogout();
+      }, INACTIVITY_LIMIT);
+    };
+
     // check session
     supabase.auth.getSession().then(({ data }) => {
       if (data.session) {
-        const sessionStart = parseInt(localStorage.getItem('sessionStart')) || 0;
-        const now = Date.now();
-        const MAX_SESSION_AGE = 10 * 60 * 1000; // 15 mins
+        const sessionStart =
+          parseInt(localStorage.getItem('sessionStart')) || 0;
 
+        const now = Date.now();
+
+        // hard session expiry
         if (sessionStart && now - sessionStart > MAX_SESSION_AGE) {
           handleLogout();
         } else {
-          if (!sessionStart) localStorage.setItem('sessionStart', Date.now().toString());
+          if (!sessionStart) {
+            localStorage.setItem(
+              'sessionStart',
+              Date.now().toString()
+            );
+          }
+
           setSession(data.session);
           loadGallery();
+
+          // start inactivity timer
+          resetTimer();
         }
       }
+
       setLoadingSession(false);
     });
 
     // auto logout timer events
-    const resetTimer = () => {
-      if (data?.session) {
-        // Implementation of auto-logout logic can be added here
-      }
-    };
-    const events = ['click', 'mousemove', 'keydown', 'scroll', 'touchstart'];
-    events.forEach((evt) => document.addEventListener(evt, resetTimer));
+    const events = [
+      'click',
+      'mousemove',
+      'keydown',
+      'scroll',
+      'touchstart',
+    ];
+
+    events.forEach((evt) =>
+      document.addEventListener(evt, resetTimer)
+    );
 
     return () => {
-      events.forEach((evt) => document.removeEventListener(evt, resetTimer));
+      clearTimeout(inactivityTimer);
+
+      events.forEach((evt) =>
+        document.removeEventListener(evt, resetTimer)
+      );
     };
-  }, []);
+  }, [session]);
 
   useEffect(() => {
     let interval;
@@ -353,7 +392,7 @@ function GalleryItem({ item, isSelected, onSelect, onReload }) {
     try {
       await supabase.from('portraits').update({ title: editTitle }).eq('id', item.id);
       setIsEditing(false);
-      onReload(); // Refresh parent gallery state
+      onReload(); // refresh parent gallery state
     } catch (err) {
       console.error(err);
       alert('Failed to update title.');
