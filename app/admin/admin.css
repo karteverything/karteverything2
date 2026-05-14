@@ -151,7 +151,7 @@
   align-items: flex-start;
   justify-content: space-between;
   gap: 12px;
-  margin-bottom: 18px;
+  margin: 0 15px 18px;
 }
 
 .gallery-header h2 { 
@@ -255,6 +255,7 @@
   border: solid 1px;
   cursor: pointer;
   padding: 5px 10px;
+  font-family: poppins, sans-serif;
 }
 
 .danger-btn:disabled {
