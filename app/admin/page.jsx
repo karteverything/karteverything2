@@ -8,27 +8,27 @@ export default function AdminPage() {
   const [session, setSession] = useState(null);
   const [loadingSession, setLoadingSession] = useState(true);
 
-  // Login State
+  // login state
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loginMsg, setLoginMsg] = useState('');
   const [isLocked, setIsLocked] = useState(false);
   const [lockTimeLeft, setLockTimeLeft] = useState(0);
 
-  // Upload State
+  // upload state
   const [title, setTitle] = useState('');
   const [file, setFile] = useState(null);
   const [previewUrl, setPreviewUrl] = useState('');
   const [uploadMsg, setUploadMsg] = useState('');
   const fileInputRef = useRef(null);
 
-  // Gallery State
+  // gallery state
   const [gallery, setGallery] = useState([]);
   const [selectedImages, setSelectedImages] = useState([]);
 
-  // --- Session & Lockout Management ---
+  // session and lockout management
   useEffect(() => {
-    // Check Lockout
+    // check lockout
     const lockUntil = parseInt(localStorage.getItem('lockUntil')) || 0;
     if (Date.now() < lockUntil) {
       setIsLocked(true);
@@ -36,12 +36,12 @@ export default function AdminPage() {
       setLockTimeLeft(remaining);
     }
 
-    // Check Session
+    // check session
     supabase.auth.getSession().then(({ data }) => {
       if (data.session) {
         const sessionStart = parseInt(localStorage.getItem('sessionStart')) || 0;
         const now = Date.now();
-        const MAX_SESSION_AGE = 30 * 60 * 1000; // 30 mins
+        const MAX_SESSION_AGE = 10 * 60 * 1000; // 15 mins
 
         if (sessionStart && now - sessionStart > MAX_SESSION_AGE) {
           handleLogout();
@@ -54,7 +54,7 @@ export default function AdminPage() {
       setLoadingSession(false);
     });
 
-    // Auto Logout Timer Events
+    // auto logout timer events
     const resetTimer = () => {
       if (data?.session) {
         // Implementation of auto-logout logic can be added here
@@ -87,7 +87,7 @@ export default function AdminPage() {
     return () => clearInterval(interval);
   }, [isLocked, lockTimeLeft]);
 
-  // --- Handlers ---
+  // handlers
   const handleLogin = async () => {
     if (isLocked) return;
     if (!email || !password) {
@@ -343,7 +343,7 @@ export default function AdminPage() {
   );
 }
 
-// Sub-component for individual gallery cards to handle their own edit/delete state
+// sub-component for individual gallery cards to handle their own edit/delete state
 function GalleryItem({ item, isSelected, onSelect, onReload }) {
   const [isEditing, setIsEditing] = useState(false);
   const [editTitle, setEditTitle] = useState(item.title);
