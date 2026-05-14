@@ -105,7 +105,7 @@ export default function AdminPage() {
         document.removeEventListener(evt, resetTimer)
       );
     };
-  }, [session]);
+  }, []);
 
   useEffect(() => {
     let interval;
