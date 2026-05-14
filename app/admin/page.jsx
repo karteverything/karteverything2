@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef } from 'react';
 import supabase from '../../lib/supabaseClient';
-import './admin.css';
+import './admin.module.css';
 
 export default function AdminPage() {
   const [session, setSession] = useState(null);
