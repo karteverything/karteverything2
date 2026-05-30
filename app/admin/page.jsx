@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef } from 'react';
 import supabase from '../../lib/supabaseClient';
-import styles from './admin.module.css';
+import './admin.css';
 
 export default function AdminPage() {
   const [session, setSession] = useState(null);
@@ -26,7 +26,9 @@ export default function AdminPage() {
   const [gallery, setGallery] = useState([]);
   const [selectedImages, setSelectedImages] = useState([]);
 
+  // session and lockout management
   useEffect(() => {
+    // check lockout
     const lockUntil = parseInt(localStorage.getItem('lockUntil')) || 0;
 
     if (Date.now() < lockUntil) {
@@ -38,9 +40,10 @@ export default function AdminPage() {
 
     let inactivityTimer;
 
-    const INACTIVITY_LIMIT = 10 * 60 * 1000;
-    const MAX_SESSION_AGE = 10 * 60 * 1000;
+    const INACTIVITY_LIMIT = 10 * 60 * 1000; // 10 mins
+    const MAX_SESSION_AGE = 10 * 60 * 1000; // 10 mins
 
+    // auto logout timer reset
     const resetTimer = () => {
       if (!session) return;
 
@@ -52,6 +55,7 @@ export default function AdminPage() {
       }, INACTIVITY_LIMIT);
     };
 
+    // check session
     supabase.auth.getSession().then(({ data }) => {
       if (data.session) {
         const sessionStart =
@@ -59,6 +63,7 @@ export default function AdminPage() {
 
         const now = Date.now();
 
+        // hard session expiry
         if (sessionStart && now - sessionStart > MAX_SESSION_AGE) {
           handleLogout();
         } else {
@@ -71,6 +76,8 @@ export default function AdminPage() {
 
           setSession(data.session);
           loadGallery();
+
+          // start inactivity timer
           resetTimer();
         }
       }
@@ -78,6 +85,7 @@ export default function AdminPage() {
       setLoadingSession(false);
     });
 
+    // auto logout timer events
     const events = [
       'click',
       'mousemove',
@@ -101,7 +109,6 @@ export default function AdminPage() {
 
   useEffect(() => {
     let interval;
-
     if (isLocked && lockTimeLeft > 0) {
       interval = setInterval(() => {
         setLockTimeLeft((prev) => {
@@ -112,18 +119,16 @@ export default function AdminPage() {
             setLoginMsg('');
             return 0;
           }
-
           return prev - 1;
         });
       }, 1000);
     }
-
     return () => clearInterval(interval);
   }, [isLocked, lockTimeLeft]);
 
+  // handlers
   const handleLogin = async () => {
     if (isLocked) return;
-
     if (!email || !password) {
       setLoginMsg('Please enter both email and password.');
       setTimeout(() => setLoginMsg(''), 3000);
@@ -131,46 +136,24 @@ export default function AdminPage() {
     }
 
     setLoginMsg('Logging in...');
-
-    const { data, error } =
-      await supabase.auth.signInWithPassword({
-        email,
-        password,
-      });
+    const { data, error } = await supabase.auth.signInWithPassword({ email, password });
 
     if (error) {
-      let attempts =
-        parseInt(localStorage.getItem('failedAttempts')) || 0;
-
+      let attempts = parseInt(localStorage.getItem('failedAttempts')) || 0;
       attempts++;
-
-      localStorage.setItem(
-        'failedAttempts',
-        attempts.toString()
-      );
-
+      localStorage.setItem('failedAttempts', attempts.toString());
       setLoginMsg(`Login failed: ${error.message}`);
 
       if (attempts >= 3) {
         const lockTime = Date.now() + 60 * 1000;
-
-        localStorage.setItem(
-          'lockUntil',
-          lockTime.toString()
-        );
-
+        localStorage.setItem('lockUntil', lockTime.toString());
         setIsLocked(true);
         setLockTimeLeft(60);
       }
     } else {
       localStorage.removeItem('failedAttempts');
       localStorage.removeItem('lockUntil');
-
-      localStorage.setItem(
-        'sessionStart',
-        Date.now().toString()
-      );
-
+      localStorage.setItem('sessionStart', Date.now().toString());
       setSession(data.session);
       loadGallery();
     }
@@ -178,9 +161,7 @@ export default function AdminPage() {
 
   const handleLogout = async () => {
     await supabase.auth.signOut();
-
     localStorage.removeItem('sessionStart');
-
     setSession(null);
     setGallery([]);
     setEmail('');
@@ -189,12 +170,10 @@ export default function AdminPage() {
 
   const handleFileChange = (e) => {
     const selectedFile = e.target.files[0];
-
     if (!selectedFile) {
       clearPreview();
       return;
     }
-
     setFile(selectedFile);
     setPreviewUrl(URL.createObjectURL(selectedFile));
   };
@@ -202,83 +181,46 @@ export default function AdminPage() {
   const clearPreview = () => {
     setFile(null);
     setPreviewUrl('');
-
-    if (fileInputRef.current) {
-      fileInputRef.current.value = '';
-    }
+    if (fileInputRef.current) fileInputRef.current.value = '';
   };
 
   const stripImageMetadata = async (originalFile) => {
     const img = new Image();
-
     img.src = URL.createObjectURL(originalFile);
-
     await img.decode();
 
     const canvas = document.createElement('canvas');
-
     canvas.width = img.naturalWidth;
     canvas.height = img.naturalHeight;
 
     const ctx = canvas.getContext('2d');
-
     ctx.drawImage(img, 0, 0);
 
-    const blob = await new Promise((resolve) =>
-      canvas.toBlob(resolve, 'image/jpeg', 0.9)
-    );
-
-    return new File(
-      [blob],
-      `image-${Date.now()}.jpg`,
-      {
-        type: 'image/jpeg',
-      }
-    );
+    const blob = await new Promise((resolve) => canvas.toBlob(resolve, 'image/jpeg', 0.9));
+    return new File([blob], `image-${Date.now()}.jpg`, { type: 'image/jpeg' });
   };
 
   const handleUpload = async () => {
     if (!file || !title) {
       setUploadMsg('Image and title required.');
-
       setTimeout(() => setUploadMsg(''), 3000);
-
       return;
     }
 
     setUploadMsg('Uploading...');
-
     try {
       const cleanFile = await stripImageMetadata(file);
-
       const filePath = `portraits/${Date.now()}-${cleanFile.name}`;
 
-      const { error: storageError } =
-        await supabase.storage
-          .from('gallery')
-          .upload(filePath, cleanFile);
-
+      const { error: storageError } = await supabase.storage.from('gallery').upload(filePath, cleanFile);
       if (storageError) throw storageError;
 
-      const { data: urlData } =
-        supabase.storage
-          .from('gallery')
-          .getPublicUrl(filePath);
+      const { data: urlData } = supabase.storage.from('gallery').getPublicUrl(filePath);
 
-      const { error: dbError } =
-        await supabase
-          .from('portraits')
-          .insert([
-            {
-              title,
-              image_url: urlData.publicUrl,
-            },
-          ]);
-
+      const { error: dbError } = await supabase.from('portraits').insert([{ title, image_url: urlData.publicUrl }]);
       if (dbError) throw dbError;
 
       setUploadMsg('Image upload successful!');
-
       setTimeout(() => setUploadMsg(''), 3000);
 
       clearPreview();
@@ -292,18 +234,10 @@ export default function AdminPage() {
 
   const loadGallery = async () => {
     try {
-      const { data, error } =
-        await supabase
-          .from('portraits')
-          .select('*')
-          .order('id', { ascending: false });
-
+      const { data, error } = await supabase.from('portraits').select('*').order('id', { ascending: false });
       if (error) throw error;
-
-      const shuffled = data.sort(
-        () => Math.random() - 0.5
-      );
-
+      // Shuffle logic
+      const shuffled = data.sort(() => Math.random() - 0.5);
       setGallery(shuffled);
       setSelectedImages([]);
     } catch (err) {
@@ -312,147 +246,76 @@ export default function AdminPage() {
   };
 
   const toggleSelectImage = (id) => {
-    setSelectedImages((prev) =>
-      prev.includes(id)
-        ? prev.filter((imgId) => imgId !== id)
-        : [...prev, id]
-    );
+    setSelectedImages((prev) => (prev.includes(id) ? prev.filter((imgId) => imgId !== id) : [...prev, id]));
   };
 
   const handleDeleteSelected = async () => {
-    if (
-      !window.confirm(
-        `Delete ${selectedImages.length} image(s)?`
-      )
-    ) {
-      return;
-    }
+    if (!window.confirm(`Delete ${selectedImages.length} image(s)?`)) return;
 
     for (const id of selectedImages) {
       const item = gallery.find((g) => g.id === id);
-
       if (item) {
-        const fileName =
-          item.image_url.split('/').pop();
-
+        const fileName = item.image_url.split('/').pop();
         const filePath = `portraits/${fileName}`;
-
-        await supabase.storage
-          .from('gallery')
-          .remove([filePath]);
-
-        await supabase
-          .from('portraits')
-          .delete()
-          .eq('id', id);
+        await supabase.storage.from('gallery').remove([filePath]);
+        await supabase.from('portraits').delete().eq('id', id);
       }
     }
-
     loadGallery();
   };
 
-  if (loadingSession) {
-    return (
-      <div
-        style={{
-          textAlign: 'center',
-          padding: '50px',
-        }}
-      >
-        Loading...
-      </div>
-    );
-  }
+  if (loadingSession) return <div style={{ textAlign: 'center', padding: '50px' }}>Loading...</div>;
 
   return (
-    <div className={styles['admin-wrapper']}>
+    <div className="admin-wrapper">
       {!session ? (
-        <section className={styles.card}>
-          <h1 className={styles.brand}>
-            Portraiture Admin
-          </h1>
-
-          <div className={styles['user-input']}>
-            <div className={styles['form-row']}>
+        <section className="card">
+          <h1 className="brand">Portraiture Admin</h1>
+          <div className="user-input">
+            <div className="form-row">
               <input
                 type="email"
                 placeholder="Email"
                 value={email}
-                onChange={(e) =>
-                  setEmail(e.target.value)
-                }
+                onChange={(e) => setEmail(e.target.value)}
                 autoComplete="username"
               />
             </div>
-
-            <div className={styles['form-row']}>
+            <div className="form-row">
               <input
                 type="password"
                 placeholder="Password"
                 value={password}
-                onChange={(e) =>
-                  setPassword(e.target.value)
-                }
+                onChange={(e) => setPassword(e.target.value)}
               />
             </div>
           </div>
-
-          <div className={styles['form-row']}>
+          <div className="form-row">
             <button
-              className={styles.btn}
-              style={{
-                width: '100%',
-                backgroundColor: '#5a5a5a',
-              }}
+              className="btn"
+              style={{ width: '100%', backgroundColor: '#5a5a5a' }}
               onClick={handleLogin}
               disabled={isLocked}
             >
-              {isLocked
-                ? `Locked (${lockTimeLeft}s)`
-                : 'Log in'}
+              {isLocked ? `Locked (${lockTimeLeft}s)` : 'Log in'}
             </button>
           </div>
-
-          <p
-            className={styles.muted}
-            style={{
-              color: isLocked
-                ? '#ef4444'
-                : 'inherit',
-            }}
-          >
+          <p className="muted" style={{ color: isLocked ? '#ef4444' : 'inherit' }}>
             {loginMsg}
           </p>
         </section>
       ) : (
         <>
-          <section
-            className={styles.card}
-            style={{ paddingTop: 0 }}
-          >
-            <h2 className={styles.upload}>
-              Image Upload Portal
-            </h2>
-
-            <div className={styles['form-row']}>
-              <input
-                type="text"
-                placeholder="Image title"
-                value={title}
-                onChange={(e) =>
-                  setTitle(e.target.value)
-                }
-              />
+          <section className="card" style={{ paddingTop: 0 }}>
+            <h2 className="upload">Image Upload Portal</h2>
+            <div className="form-row">
+              <input type="text" placeholder="Image title" value={title} onChange={(e) => setTitle(e.target.value)} />
             </div>
 
-            <div className={styles['form-row']}>
-              <label
-                htmlFor="image"
-                className={styles['file-label']}
-              >
+            <div className="form-row">
+              <label htmlFor="image" className="file-label">
                 <span>Choose Image</span>
               </label>
-
               <input
                 id="image"
                 type="file"
@@ -461,72 +324,112 @@ export default function AdminPage() {
                 onChange={handleFileChange}
                 style={{ display: 'none' }}
               />
-
               {file && (
-                <button
-                  type="button"
-                  className={styles.btn}
-                  id={styles['clear-file']}
-                  onClick={clearPreview}
-                >
+                <button type="button" className="btn outline" id="clear-file" onClick={clearPreview}>
                   Cancel
                 </button>
               )}
             </div>
 
             {previewUrl && (
-              <div
-                style={{
-                  display: 'flex',
-                  flexDirection: 'column',
-                  alignItems: 'center',
-                  gap: '8px',
-                }}
-              >
-                <img
-                  src={previewUrl}
-                  alt="Preview"
-                  style={{
-                    maxWidth: '160px',
-                    borderRadius: '10px',
-                  }}
-                />
-
-                <div
-                  style={{
-                    fontSize: '0.9rem',
-                    opacity: 0.8,
-                  }}
-                >
-                  {file?.name}
-                </div>
+              <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px' }}>
+                <img src={previewUrl} alt="Preview" style={{ maxWidth: '160px', borderRadius: '10px' }} />
+                <div style={{ fontSize: '0.9rem', opacity: 0.8 }}>{file?.name}</div>
               </div>
             )}
 
-            <div
-              className={`${styles['form-row']} ${styles['action-row']}`}
-            >
-              <button
-                className={styles.btn}
-                onClick={handleUpload}
-              >
+            <div className="form-row action-row">
+              <button className="btn primary" onClick={handleUpload}>
                 Upload
               </button>
-
-              <button
-                className={styles.btn}
-                onClick={handleLogout}
-              >
+              <button className="btn outline" onClick={handleLogout}>
                 Logout
               </button>
             </div>
+            <p className="muted">{uploadMsg}</p>
+          </section>
 
-            <p className={styles.muted}>
-              {uploadMsg}
-            </p>
+          <section className="card gallery-card">
+            <div className="gallery-header">
+              <h2>G A L L E R Y</h2>
+              <button
+                className="danger-btn"
+                disabled={selectedImages.length === 0}
+                onClick={handleDeleteSelected}
+              >
+                Delete Selected
+              </button>
+            </div>
+            <div className="grid">
+              {gallery.length === 0 ? (
+                <p>No images found.</p>
+              ) : (
+                gallery.map((item) => (
+                  <GalleryItem
+                    key={item.id}
+                    item={item}
+                    isSelected={selectedImages.includes(item.id)}
+                    onSelect={() => toggleSelectImage(item.id)}
+                    onReload={loadGallery}
+                  />
+                ))
+              )}
+            </div>
           </section>
         </>
       )}
+    </div>
+  );
+}
+
+// sub-component for individual gallery cards to handle their own edit/delete state
+function GalleryItem({ item, isSelected, onSelect, onReload }) {
+  const [isEditing, setIsEditing] = useState(false);
+  const [editTitle, setEditTitle] = useState(item.title);
+
+  const handleSave = async () => {
+    if (!editTitle.trim()) return alert('Title cannot be empty.');
+    try {
+      await supabase.from('portraits').update({ title: editTitle }).eq('id', item.id);
+      setIsEditing(false);
+      onReload(); // refresh parent gallery state
+    } catch (err) {
+      console.error(err);
+      alert('Failed to update title.');
+    }
+  };
+
+  return (
+    <div className="portrait-card">
+      <label className="select-box">
+        <input type="checkbox" className="select-checkbox" checked={isSelected} onChange={onSelect} />
+      </label>
+      <img src={item.image_url} alt={item.title} />
+
+      {isEditing ? (
+        <div style={{ width: '100%', marginBottom: '10px' }}>
+          <input
+            type="text"
+            className="edit-input"
+            style={{ width: '100%', boxSizing: 'border-box' }}
+            value={editTitle}
+            onChange={(e) => setEditTitle(e.target.value)}
+          />
+        </div>
+      ) : (
+        <h3>{item.title}</h3>
+      )}
+
+      <div className="card-actions">
+        {isEditing ? (
+          <>
+            <button className="save-btn" onClick={handleSave}>Save</button>
+            <button className="cancel-btn" onClick={() => setIsEditing(false)}>Cancel</button>
+          </>
+        ) : (
+          <button className="edit-btn" onClick={() => setIsEditing(true)}>Rename</button>
+        )}
+      </div>
     </div>
   );
 }
