@@ -1,7 +1,6 @@
 import './globals.css';
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
 import { ReactNode } from "react";
+import LayoutContent from "@/components/LayoutContent";
 
 export const metadata = {
     title: "KArt Everything",
@@ -16,11 +15,9 @@ export default function RootLayout({
     return (
         <html lang="en">
             <body>
-                <Header />
-                <main>
+                <LayoutContent>
                     {children}
-                </main>
-                <Footer />
+                </LayoutContent>
             </body>
         </html>
     );
