@@ -8,7 +8,7 @@ export default function Gallery() {
 
                 <p className="sunset-quote">
                     Whether it's a random street corner or a glowing sky, I take
-                    photos to remember how thing felt - the laughter, the stillness
+                    photos to remember how thing felt - the laughter, the stillness,
                     the golden light before sunsets. Nature's quiet masterpieces!
                 </p>
 

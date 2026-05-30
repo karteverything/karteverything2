@@ -12,7 +12,7 @@ export default function Supabase() {
 
                 <article>
                     <p>
-                        See how I integrated Supbase database for my Portraiture Gallery.
+                        See how I integrated Supabase database for my Portraiture Gallery.
                         This post explains the setup, database structure, and fetching images dynamically.
                     </p>
 
