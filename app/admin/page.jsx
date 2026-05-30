@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
-import supabase from '../../lib/supabaseClient';
+import supabase from '../../lib/supabase';
 import './admin.css';
 
 export default function AdminPage() {
