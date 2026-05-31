@@ -156,6 +156,9 @@ export default function AdminPage() {
       localStorage.setItem('sessionStart', Date.now().toString());
       setSession(data.session);
       loadGallery();
+
+      // clear "Loggin in..."
+      setLoginMsg('');
     }
   };
 
