@@ -154,11 +154,17 @@ export default function AdminPage() {
       localStorage.removeItem('failedAttempts');
       localStorage.removeItem('lockUntil');
       localStorage.setItem('sessionStart', Date.now().toString());
-      setSession(data.session);
-      loadGallery();
-
+      
       // clear "Loggin in..."
       setLoginMsg('');
+
+      setSession(data.session);
+
+      try {
+        await loadGallery();
+      } catch (err) {
+        console.log("Gallery currently unavailable:", err);
+      }
     }
   };
 
