@@ -1,6 +1,7 @@
 import './globals.css';
 import { ReactNode } from "react";
 import LayoutContent from "@/components/LayoutContent";
+import { GoogleAnalytics } from '@next/third-parties/google';
 
 export const metadata = {
     title: "KArt Everything",
@@ -19,6 +20,8 @@ export default function RootLayout({
                     {children}
                 </LayoutContent>
             </body>
+
+            <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID!}/>
         </html>
     );
 }
