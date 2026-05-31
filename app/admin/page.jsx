@@ -293,7 +293,6 @@ export default function AdminPage() {
           <div className="form-row">
             <button
               className="btn"
-              style={{ width: '100%', backgroundColor: '#5a5a5a' }}
               onClick={handleLogin}
               disabled={isLocked}
             >
