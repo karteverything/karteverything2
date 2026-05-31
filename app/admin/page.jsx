@@ -166,6 +166,9 @@ export default function AdminPage() {
     setGallery([]);
     setEmail('');
     setPassword('');
+
+    setLoginMsg('Logged out!');
+    setTimeout(() => setLoginMsg(''), 3000);
   };
 
   const handleFileChange = (e) => {
