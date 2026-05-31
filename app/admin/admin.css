@@ -130,6 +130,7 @@
 
 .btn:hover {
   background-color: #444;
+  color: white;
 }
 
 .action-row {
