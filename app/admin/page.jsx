@@ -246,14 +246,24 @@ export default function AdminPage() {
 
   const loadGallery = async () => {
     try {
-      const { data, error } = await supabase.from('portraits').select('*').order('id', { ascending: false });
+      const { data, error } = await supabase
+        .from('portraits')
+        .select('*')
+        .order('id', { ascending: false });
+
       if (error) throw error;
-      // Shuffle logic
+
+      // shuffle logic
       const shuffled = data.sort(() => Math.random() - 0.5);
       setGallery(shuffled);
       setSelectedImages([]);
+
     } catch (err) {
       console.error(err);
+      
+      // show empty gallery instead of breaking the page
+      setGallery([]);
+      setSelectedImages([]);
     }
   };
 
