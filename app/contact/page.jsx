@@ -48,6 +48,10 @@ export default function Contact() {
 
     return (
         <section id="contact" className="contact-section">
+
+            {/* message toaster */}
+            <Toaster />
+
             <div className="contact-title">
                 <h2>Contact Me</h2>
                 <p className="que">Have questions or feedback? Share with me!</p>
