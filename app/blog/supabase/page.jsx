@@ -122,7 +122,7 @@ export default function Supabase() {
                     </p>
                 </article>
 
-                <a href="/#blog" className="btn">
+                <a href="/blog" className="btn">
                     Back to Blog
                 </a>
             </div>
