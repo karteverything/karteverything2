@@ -81,7 +81,7 @@ export default function PersonalGrowth() {
           </p>
         </article>
 
-        <Link href="/blog" className="btn">
+        <Link href="/#blog" className="btn">
           Back to Blog
         </Link>
       </div>
