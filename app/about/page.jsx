@@ -13,20 +13,6 @@ export default function About() {
                     </p>
                 </div>
 
-                <div className="column bottom">
-                    <h3>Technical Skills</h3>
-
-                    <ul>
-                        <li>
-                            Languages and Frameworks: <br />
-                            [Python | HTML | CSS | JavaScript | NextJS]
-                        </li>
-                        <li>Systems Analysis and Design</li>
-                        <li>Git & GitHub workflows</li>
-                        <li>Database Management Systems</li>
-                    </ul>
-                </div>
-
                 <div className="column bottom resume">
                     <h3>Education</h3>
 
@@ -39,8 +25,22 @@ export default function About() {
                     <p>
                         <strong>National Senior Certificate</strong> <br />
                         DD Mabuza Comprehensive High School <br />
-                        2018
+                        Matric 2018
                     </p>
+                </div>
+
+                <div className="column bottom">
+                    <h3>Technical Skills</h3>
+
+                    <ul>
+                        <li>
+                            Languages and Frameworks: <br />
+                            [Python | HTML | CSS | JavaScript | NextJS]
+                        </li>
+                        <li>Systems Analysis and Design</li>
+                        <li>Git & GitHub workflows</li>
+                        <li>Database Management Systems</li>
+                    </ul>
                 </div>
             </div>
         </section>
