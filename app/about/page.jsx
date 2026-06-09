@@ -42,6 +42,32 @@ export default function About() {
                         <li>Database Management Systems</li>
                     </ul>
                 </div>
+
+                <div className="column bottom resume">
+                    <h3>Certificates</h3>
+
+                    <ul>
+                        <li>
+                            Introduction to Cybersecurity <br />
+                            <small>Cisco Networking Academy</small>
+                        </li>
+                        <li>
+                            Operating Systems Basics <br />
+                            <small>Cisco Networking Academy</small>
+                        </li>
+                        <li>Introduction to Data Science <br />
+                            <small>Cisco Networking Academy</small>
+                        </li>
+                        <li>
+                            Introduction to Cloud Computing <br />
+                            <small>Simplilearn</small>
+                        </li>
+                        <li>
+                            Cybersecurity Fundamentals <br />
+                            <small>IBM SkillsBuild</small>
+                        </li>
+                    </ul>
+                </div>
             </div>
         </section>
     );
