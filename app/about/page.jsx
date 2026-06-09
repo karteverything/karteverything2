@@ -48,22 +48,53 @@ export default function About() {
 
                     <ul>
                         <li>
-                            Introduction to Cybersecurity <br />
+                            <a 
+                                href="https://www.credly.com/badges/ff1191f8-25e3-4df5-b506-625fc249c244/public_url"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                            >
+                                Introduction to Cybersecurity <br />
+                            </a>
                             <small>Cisco Networking Academy</small>
                         </li>
                         <li>
-                            Operating Systems Basics <br />
-                            <small>Cisco Networking Academy</small>
-                        </li>
-                        <li>Introduction to Data Science <br />
+                            <a 
+                                href="https://www.credly.com/badges/7db5ff90-e044-43c9-a19a-33c6c67d7f21/public_url"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                            >
+                                Operating Systems Basics <br />
+                            </a>
                             <small>Cisco Networking Academy</small>
                         </li>
                         <li>
-                            Introduction to Cloud Computing <br />
+                            <a 
+                                href="https://www.credly.com/badges/97e38071-99b4-45ad-8b9a-4799fb17e576/public_url"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                            >
+                                Introduction to Data Science <br />
+                            </a>
+                            <small>Cisco Networking Academy</small>
+                        </li>
+                        <li>
+                            <a 
+                                href=""
+                                target="_blank"
+                                rel="noopener noreferrer"
+                            >
+                                Introduction to Cloud Computing <br />
+                            </a>
                             <small>Simplilearn</small>
                         </li>
                         <li>
-                            Cybersecurity Fundamentals <br />
+                            <a 
+                                href="https://www.credly.com/badges/72bb6a75-e346-4cfa-b716-543e10373f2a/public_url"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                            >
+                                Cybersecurity Fundamentals <br />
+                            </a>
                             <small>IBM SkillsBuild</small>
                         </li>
                     </ul>
