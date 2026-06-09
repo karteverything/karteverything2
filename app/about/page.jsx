@@ -28,9 +28,19 @@ export default function About() {
                 </div>
 
                 <div className="column bottom resume">
-                    <h3>Get In Touch</h3>
-                    <p>Interested in working together?</p>
-                    <a href="#contact" className="btn">Contact Me</a>
+                    <h3>Education</h3>
+
+                    <p>
+                        <strong>Diploma in Informatics</strong> <br />
+                        Tshwane University of Technology <br />
+                        2023 - Present
+                    </p>
+
+                    <p>
+                        <strong>National Senior Certificate</strong> <br />
+                        DD Mabuza Comprehensive High School <br />
+                        2018
+                    </p>
                 </div>
             </div>
         </section>
