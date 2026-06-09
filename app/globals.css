@@ -366,6 +366,15 @@ ul {
     color: var(--text-main);
 }
 
+.column.bottom a {
+    color: var(--text-main);
+    text-decoration: none;
+}
+
+.column.bottom a:hover {
+    text-decoration: underline;
+}
+
 @media (max-width: 768px) {
     .column.full-width {
         flex-direction: column;
