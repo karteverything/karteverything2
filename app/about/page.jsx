@@ -18,11 +18,10 @@ export default function About() {
 
                     <ul>
                         <li>
-                            Web Development: <br></br>
-                            [HTML | CSS | JavaScript | NextJS]
+                            Languages and Frameworks: <br />
+                            [Python | HTML | CSS | JavaScript | NextJS]
                         </li>
-                        <li>Java</li>
-                        <li>C</li>
+                        <li>Systems Analysis and Design</li>
                         <li>Git & GitHub workflows</li>
                         <li>Database Management Systems</li>
                     </ul>
