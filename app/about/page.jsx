@@ -39,7 +39,7 @@ export default function About() {
                         </li>
                         <li>Systems Analysis and Design</li>
                         <li>Git & GitHub workflows</li>
-                        <li>Database Management Systems</li>
+                        <li>Database Management, Systems, and Design</li>
                     </ul>
                 </div>
 
