@@ -167,6 +167,10 @@ nav a:hover {
     .menu-icons {
         display: block;
     }
+
+    .header {
+        padding-left: 15px;
+    }
 }
 
 /* hero section */
@@ -175,7 +179,6 @@ nav a:hover {
     display: flex;
     justify-content:flex-start;
     align-items: center;
-    /*background-image: url(../public/bg_image.jpg);*/
     background-attachment: scroll;
     background-repeat: no-repeat;
     background-position: center;
@@ -214,14 +217,15 @@ h1 {
 }
 
 @keyframes blue-fade {
-    0% { background-position: 0% center; }
-    100% { background-position: 100% center; }
+    10% { background-position: 10% center; }
+    50% { background-position: 100% center; }
 }
 
 
 @media (max-width: 768px) {
     .hero {
         text-align: left;
+        padding-top: 50px;
     }
 
     .hero .container {
@@ -236,7 +240,7 @@ h1 {
     }
 }
 
-/* floating title */
+/* floating title 
 @keyframes float {
     0% {
         transform: translateY(0px);
@@ -247,7 +251,7 @@ h1 {
     100% {
         transform: translateY(0px);
     }
-}
+}*/
 
 .hero h1 {
   animation: float 3s ease-in-out infinite;
