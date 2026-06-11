@@ -7,8 +7,12 @@ export default function BlogPreview() {
             <div className="blog-container container">
 
                 <div className="blog-title">
-                    <h2>Latest Blog Posts</h2>
-                    <p>Thoughts, tutorials, insight, and stories behind my work.</p>
+                    <h2>Blog Posts</h2>
+                    <p>
+                        Explore tutorials, project highlights, cybersecurity topics,
+                        and reflections on the challenges, lessons, and experiences that
+                        shape my work. 
+                    </p>
                 </div>
                 
                 <div className="blog-grid">

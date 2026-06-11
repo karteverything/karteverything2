@@ -858,10 +858,12 @@ ul {
 @media (max-width: 768px) {
     .blog-title h2 {
         font-size: 1.3rem;
+        text-align: left;
     }
 
     .blog-title p {
         font-size: 1rem;
+        text-align: left;
     }
 
     .blog-card h3 {
