@@ -463,7 +463,7 @@ ul {
     }
 }
 
-/* services Section */
+/* services section */
 .services-section {
   background-color: #4d4d4d;
   padding: 80px 20px;
@@ -538,14 +538,18 @@ ul {
 @media (max-width: 768px) {
   .services-section {
     padding: 60px 15px;
+    align-items: flex-start;
   }
 
   .services-section h2 {
     font-size: 1.3rem;
+    text-align: left;
+    
   }
 
-  .services-section p {
+  .services-section > p {
     font-size: 1rem;
+    text-align: left;
   }
 
   .box {
