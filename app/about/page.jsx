@@ -4,13 +4,23 @@ export default function About() {
             <div className="about-container container">
 
                 <div className="column full-width">
-                    <h2 className="section-title">About Kat</h2>
-
                     <p>
-                        I build websites, and capture moments through photography.
-                        Whether I'm coding or behind the camera, I'm all about bringing ideas to life
-                        fun, meaningful ways.
+                        I combine TECHNOLOGY with CREATIVITY.
+                        <br />
+                        <br />
+                        As a developer, cybersecurity enthusiast, and informatics
+                        student, I enjoy solving problems, building things, and exploring technology.
+                        <br />
+                        <br />
+                        Whether I am writing code or behind the camera, I am all about bringing ideas
+                        into fun meaningful ways. 
+                        
+                        <br />
+                        <br />
+                        <small><i>Sharing stories through technology and visual art.</i></small>
                     </p>
+
+                    <h2 className="section-title">About Kat</h2>
                 </div>
 
                 <div className="column bottom resume">

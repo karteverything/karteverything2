@@ -393,6 +393,17 @@ ul {
     .column.full-width {
         flex-direction: column;
         align-items: stretch;
+        padding-left: 0;
+        text-align: left;
+        padding: 1.5rem;
+        margin-bottom: 0.5rem;
+        border-bottom: none;
+        background: linear-gradient(
+            135deg,
+            rgba(255,255,255,0.15),
+            rgba(255,255,255,0.05)
+        );
+        border-radius: 12px;
     }
 
     .column.bottom {
@@ -405,6 +416,16 @@ ul {
 
     .column.full-width p {
         font-size: 1rem;
+        margin: 0;
+        text-align: left;
+        font-size: 1rem;
+        line-height: 1.8;
+    }
+
+    .column.full-width small {
+        display: block;
+        margin-top: 0.2rem;
+        color: var(--text-main-light);
     }
 
     li {
@@ -421,8 +442,17 @@ ul {
 
     .section-title {
         font-size: 1.3rem;
+        text-align: left;
+        width: 100%;
+        margin-top: 1.5rem;
+        margin-bottom: 0;
+        padding-left: 0;
     }
 
+    .column.full-width p {
+        text-align: left;
+    }
+    
     .btn {
         font-size: 0.85rem;
     }
