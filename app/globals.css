@@ -953,6 +953,15 @@ li {
     background-color: #999;
 }
 
+.blog-post-container a {
+    color: var(--text-muted);
+    text-decoration: none;
+}
+
+.blog-post-container a:hover {
+    text-decoration: underline;
+}
+
 @media (max-width: 768px) {
   .blog-post-container {
     padding: 0 0.5rem;
