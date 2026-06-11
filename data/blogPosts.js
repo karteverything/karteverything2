@@ -31,4 +31,12 @@ export const blogPosts = [
         published: "2025-12-02",
         updated: "2026-03-10",
     },
+    {
+        slug: "securing",
+        title: "Vulnerability Assessment",
+        snippet: "Future Interns Cybersecurity Task 1 Vulnerability Assessment",
+        path: "/blog/securing",
+        published: "2026-06-11",
+        updated: "",
+    },
 ];
