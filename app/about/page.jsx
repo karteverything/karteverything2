@@ -99,6 +99,14 @@ export default function About() {
                         </li>
                     </ul>
                 </div>
+
+                <div className="column bottom">
+                    <h3>Experience</h3>
+
+                    <p>
+                        Coming Soon!
+                    </p>
+                </div>
             </div>
         </section>
     );
