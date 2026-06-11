@@ -47,6 +47,12 @@ export default function PersonalGrowth() {
                 <td>Routing, dynamic rendering, API routes</td>
                 <td>Making this site fully dynamic</td>
               </tr>
+              
+              <tr>
+                <td>Cybersecurity</td>
+                <td>Threat analysis, vulnerability assessment, security fundamentals</td>
+                <td>Developing a security-first mindset</td>
+              </tr>
             </tbody>
           </table>
 
