@@ -34,7 +34,7 @@ export const blogPosts = [
     {
         slug: "securing",
         title: "Vulnerability Assessment",
-        snippet: "Future Interns Cybersecurity Task 1 Vulnerability Assessment",
+        snippet: "KArt Everything Vulnerability Assessment",
         path: "/blog/securing",
         published: "2026-06-11",
         updated: "",
