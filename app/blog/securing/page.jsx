@@ -14,7 +14,7 @@ export default function VulnerabilityAssessment() {
 
                 <article>
                     <p>
-                        As part of my Cyber Security Internship with <a href="">Future Interns,</a> I completed
+                        As part of my Cyber Security Internship with <a href="https://futureinterns.com/" target="_blank">Future Interns,</a> I completed
                         a vulnerability assessment on this personal portfolio website, KArt Everything. The 
                         objective was to identify potential security weaknesses. understand how security testing tools
                         work, and gain practical experience in vulnerability assessment. 
