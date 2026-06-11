@@ -717,10 +717,13 @@ ul {
 
     .gallery-title {
         margin-bottom: 50px;
+        text-align: left;
+        align-items: flex-start;
     }
 
     .gallery-title h2 {
         font-size: 1.3rem;
+        text-align: left;
     }
 
     .gallery-title p {
@@ -732,7 +735,7 @@ ul {
     }
 
     .gallery-grid {
-        column-count: 2;   /* ← exactly 2 frames */
+        column-count: 2;   /* exactly 2 frames */
         column-gap: 12px;
         width: 100%;
         margin-top: 20px;
