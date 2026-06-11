@@ -953,12 +953,12 @@ li {
     background-color: #999;
 }
 
-.blog-post-container a {
+.internship a {
     color: var(--text-muted);
     text-decoration: none;
 }
 
-.blog-post-container a:hover {
+.internship a:hover {
     text-decoration: underline;
 }
 

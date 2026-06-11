@@ -13,7 +13,7 @@ export default function VulnerabilityAssessment() {
                 </div>
 
                 <article>
-                    <p>
+                    <p className="internship">
                         As part of my Cyber Security Internship with <a href="https://futureinterns.com/" target="_blank">Future Interns,</a> I completed
                         a vulnerability assessment on this personal portfolio website, KArt Everything. The 
                         objective was to identify potential security weaknesses. understand how security testing tools
