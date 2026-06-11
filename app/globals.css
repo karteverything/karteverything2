@@ -1181,12 +1181,14 @@ input[type=text], textarea {
     .contact-container {
         flex-direction: column;
         padding-bottom: 30px;
-        width: 500px;
+        width: 100%;
     }
 
     .contact-title h2 {
         font-size: 1.3rem;
         margin-bottom: 2rem;
+        text-align: left;
+        margin: 0 0 1rem 0;
     }
 
     .contact-left {
@@ -1201,8 +1203,10 @@ input[type=text], textarea {
 
     .contact-left,
     .contact-right {
-        max-width: 90%;
-        text-align: center;
+        max-width: 100%;
+        width: 100%;
+        padding: 0 15px;
+        box-sizing: border-box;
     }
 
     .social-icons ul{
@@ -1216,21 +1220,52 @@ input[type=text], textarea {
 
     .contact-title p {
         font-size: 1rem;
-        margin-bottom: 30px;
+        margin-bottom: 0;
+        text-align: left;
     }
 
     .contact-title {
-        width: 80%;
+        width: 100%;
         padding-bottom: 10px;
+        text-align: left;
+    }
+
+    .contact-form {
+        width: 100%;
     }
 
     .contact-form input,
     .contact-form textarea {
-        padding: 0.35rem;
+        width: 100%;
+        box-sizing: border-box;
     }
 
     .contact-right p {
         font-size: 0.9rem;
+    }
+
+    .contact-form .btn {
+        display: block;
+        margin-left: 0;
+        margin: auto;
+    }
+
+    .contact-left,
+    .contact-right {
+        padding-left: 15px;
+        padding-right: 15px;
+        text-align: left;
+    }
+
+    .contact-form .btn,
+    .contact-right h3,
+    .contact-right p,
+    .social-icons h3 {
+        text-align: left;
+    }
+
+    .social-icons ul {
+        justify-content: flex-start;
     }
 }
 
