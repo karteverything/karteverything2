@@ -1181,11 +1181,19 @@ input[type=text], textarea {
     background-color: #fff;
 }
 
+/* Mobile Devices Styling Update */
 @media (max-width: 768px) {
     .contact-container {
         flex-direction: column;
         padding-bottom: 30px;
         width: 100%;
+        align-items: flex-start; /* Ensures flex container contents align left */
+    }
+
+    .contact-title {
+        width: 100%;
+        padding-bottom: 10px;
+        text-align: left;
     }
 
     .contact-title h2 {
@@ -1195,43 +1203,26 @@ input[type=text], textarea {
         margin: 0 0 1rem 0;
     }
 
-    .contact-left {
-        padding-right: 30px;
-        width: auto;
-        margin: 0 auto;
-    }
-
-    .contact-right {
-        margin-top: 20px;
-    }
-
-    .contact-left,
-    .contact-right {
-        max-width: 100%;
-        width: 100%;
-        padding: 0 15px;
-        box-sizing: border-box;
-    }
-
-    .social-icons ul{
-        display: flex;
-        justify-content: center;
-    }
-
-    .footer-content ul li a {
-        font-size: 0.6rem;
-    }
-
     .contact-title p {
         font-size: 1rem;
         margin-bottom: 0;
         text-align: left;
     }
 
-    .contact-title {
+    .contact-left {
+        max-width: 100%;
         width: 100%;
-        padding-bottom: 10px;
-        text-align: left;
+        padding: 0; /* Clears desktop offsets for an exact match with title */
+        margin: 0;  /* Fixed: Removed auto margin causing centering */
+        box-sizing: border-box;
+    }
+
+    .contact-right {
+        margin-top: 20px;
+        max-width: 100%;
+        width: 100%;
+        padding: 0; /* Clears desktop left padding offset */
+        box-sizing: border-box;
     }
 
     .contact-form {
@@ -1244,32 +1235,29 @@ input[type=text], textarea {
         box-sizing: border-box;
     }
 
-    .contact-right p {
-        font-size: 0.9rem;
-    }
-
     .contact-form .btn {
         display: block;
-        margin-left: 0;
-        margin: auto;
-    }
-
-    .contact-left,
-    .contact-right {
-        padding-left: 15px;
-        padding-right: 15px;
+        margin: 0; /* Fixed: Overrode margin auto to pin button left */
         text-align: left;
     }
 
-    .contact-form .btn,
     .contact-right h3,
     .contact-right p,
     .social-icons h3 {
         text-align: left;
     }
 
+    .contact-right p {
+        font-size: 0.9rem;
+    }
+
     .social-icons ul {
-        justify-content: flex-start;
+        display: flex;
+        justify-content: flex-start; /* Ensures icons stick left */
+    }
+
+    .footer-content ul li a {
+        font-size: 0.6rem;
     }
 }
 
