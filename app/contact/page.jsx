@@ -54,7 +54,7 @@ export default function Contact() {
 
             <div className="contact-title">
                 <h2>Contact Me</h2>
-                <p className="que">Have questions or feedback? Share with me!</p>
+                <p className="que">Have a business inquiry, questions or feedback? Share with me!</p>
             </div>
 
             <div className="contact-container">
