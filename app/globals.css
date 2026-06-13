@@ -1169,11 +1169,16 @@ input[type=text], textarea {
     margin-left: 15px;
 }
 
+.contact-form input,
+.contact-form textarea {
+    transition: all 0.25s ease;
+}
+
 .contact-form input:focus,
 .contact-form textarea:focus {
     outline: none;
-    border-color: #ccc;
-    box-shadow: none;
+    border-color: #999;
+    background-color: #fff;
 }
 
 @media (max-width: 768px) {
