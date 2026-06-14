@@ -15,7 +15,7 @@ export default function Home() {
           <h1>Sure, it's Kat</h1>
 
           <p id="home-intro">
-            This is where I blend my passions, nature through photography,
+            This is where I blend my passions; nature through photography,
             systems development, and a little bit of everything else. 
             <span className="blue-gradient-text">{" "}
               Welcome to my journal!
