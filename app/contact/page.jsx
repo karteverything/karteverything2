@@ -13,7 +13,7 @@ export default function Contact() {
         // simple email regex pattern
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-        if (!data.name.trim() || data.name.lenth < 3) {
+        if (!data.name || !data.name.trim() || data.name.trim().length < 3) {
             return "Please enter a valid name (at least 3 characters).";
         }
         if (!emailRegex.test(data.email)) {
