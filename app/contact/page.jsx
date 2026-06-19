@@ -8,6 +8,26 @@ import toast, { Toaster } from "react-hot-toast";
 
 export default function Contact() {
 
+    // validation helper function
+    const validateForm = (data) => {
+        // simple email regex pattern
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+        if (!data.name.trim() || data.name.lenth < 3) {
+            return "Please enter a valid name (at least 3 characters).";
+        }
+        if (!emailRegex.test(data.email)) {
+            return "Please enter a valid email address.";
+        }
+        if (!data.subject.trim() || data.subject.length < 5) {
+            return "Please enter a valid subject (at least 5 characters).";
+        }
+        if (!data.message.trim() || data.message.length < 10) {
+            return "Please enter a valid message (at least 10 characters).";
+        }
+        return null; // no errors
+    }
+
     const [formData, setFormData] = useState({
         name: "",
         email: "",
