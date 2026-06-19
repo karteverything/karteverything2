@@ -13,17 +13,15 @@ export default function RootLayout({
 }: {
     children: ReactNode;
 }) {
+    const gaId = process.env.NEXT_PUBLIC_GA_ID;
     return (
         <html lang="en">
             <body>
                 <LayoutContent>
                     {children}
                 </LayoutContent>
-
-                {process.env.NEXT_PUBLIC_GA_ID && (
-                <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID} />
-                )}
             </body>
+            {gaId && <GoogleAnalytics gaId={gaId} />}
         </html>
     );
 }
