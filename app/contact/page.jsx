@@ -34,11 +34,18 @@ export default function Contact() {
                 process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY
             );
             console.log(result.text);
+
             // remove loading toast
             toast.dismiss();
-            toast.success("Message sent successfully!");
+
+            // message send toast
+            toast.success("Message sent successfully!", {
+                autoClose: 3000,
+            });
+
             // reset form
             setFormData({ name: "", email: "", subject: "", message: "" });
+            
         } catch (error) {
             console.error(error);
             toast.dismiss();
