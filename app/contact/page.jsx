@@ -44,6 +44,16 @@ export default function Contact() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+
+        // 1. run custom validation
+        const validationError = validateForm(formData);
+        if (validationError) {
+            // show error toast
+            toast.error(validationError);
+            // stop form submission
+            return;
+        }
+        // 2. proceed with sending email if validation passes
         toast.loading("Sending message...");
 
         try {
