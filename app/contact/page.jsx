@@ -45,7 +45,7 @@ export default function Contact() {
 
             // reset form
             setFormData({ name: "", email: "", subject: "", message: "" });
-            
+
         } catch (error) {
             console.error(error);
             toast.dismiss();
@@ -100,6 +100,7 @@ export default function Contact() {
                         rows="3"
                         placeholder="Message"
                         required
+                        minLength={10}
                         value={formData.message}
                         onChange={handleChange}
                         ></textarea>
