@@ -380,12 +380,32 @@ ul {
 }
 
 .column.bottom a {
+    position: relative;
+    display: inline-block;
     color: var(--text-main);
     text-decoration: none;
 }
 
-.column.bottom a:hover {
-    text-decoration: underline;
+.column.bottom a::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: -1px;
+    width: 0;
+    height: 1px;
+    background-color: currentColor;
+    transform: translateX(-50%);
+    transition: width 0.3s ease;
+}
+
+.column.bottom a:hover::after {
+    width: 100%;
+}
+
+.column.bottom small {
+    display: block;
+    margin-top: 0.2rem;
+    color: var(--text-main-light);
 }
 
 @media (max-width: 768px) {

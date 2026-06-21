@@ -61,7 +61,7 @@ export default function About() {
                                 target="_blank"
                                 rel="noopener noreferrer"
                             >
-                                Introduction to Cybersecurity <br />
+                                Introduction to Cybersecurity 
                             </a>
                             <small>Cisco Networking Academy</small>
                         </li>
@@ -71,7 +71,7 @@ export default function About() {
                                 target="_blank"
                                 rel="noopener noreferrer"
                             >
-                                Operating Systems Basics <br />
+                                Operating Systems Basics 
                             </a>
                             <small>Cisco Networking Academy</small>
                         </li>
@@ -81,7 +81,7 @@ export default function About() {
                                 target="_blank"
                                 rel="noopener noreferrer"
                             >
-                                Introduction to Data Science <br />
+                                Introduction to Data Science 
                             </a>
                             <small>Cisco Networking Academy</small>
                         </li>
@@ -91,7 +91,7 @@ export default function About() {
                                 target="_blank"
                                 rel="noopener noreferrer"
                             >
-                                Introduction to Cloud Computing <br />
+                                Introduction to Cloud Computing
                             </a>
                             <small>Simplilearn</small>
                         </li>
@@ -101,7 +101,7 @@ export default function About() {
                                 target="_blank"
                                 rel="noopener noreferrer"
                             >
-                                Cybersecurity Fundamentals <br />
+                                Cybersecurity Fundamentals 
                             </a>
                             <small>IBM SkillsBuild</small>
                         </li>
