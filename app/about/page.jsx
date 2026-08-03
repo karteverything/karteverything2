@@ -112,8 +112,22 @@ export default function About() {
                     <h3>Experience</h3>
 
                     <p>
-                        Coming Soon!
+                        <strong>Cyber Security Intern</strong> <br></br>
+                        Future Interns <br></br>
+                        June 2026 - July 2026
                     </p>
+                    <p>
+                        Over the course of this internship, I had the opportunity to strengthen my understanding of cybersecurity by
+                        working on hands-on tasks that challenged me to think both like an attacker and a defender. 
+                    </p>
+                    <p>The areas I explored include:</p>
+                    <ul>
+                        <li>API Security Risk Analysis</li>
+                        <li>Identifying and assessing commo security vulnerabilitites</li>
+                        <li>Security risk evaluation and mitigation strategies</li>
+                        <li>Technical documentation and reporting</li>
+                        <li>Applying cybersecurity concepts to real-world scenarios</li>
+                    </ul>
                 </div>
             </div>
         </section>
