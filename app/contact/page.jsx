@@ -171,7 +171,7 @@ export default function Contact() {
 
                             <li>
                                 <a 
-                                    href="https://www.linkedin.com/in/karteverything" 
+                                    href="" 
                                     target="_blank" 
                                     rel="noopener noreferrer"
                                 >
