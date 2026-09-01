@@ -16,22 +16,6 @@ export const blogPosts = [
         updated: "2026-03-10",
     },
     {
-        slug: "perfection",
-        title: "The Precision of Perfection",
-        snippet: "The say perfection is a sickness, but maybe it's just love expressed with precision.",
-        path: "/blog/perfection",
-        published: "2025-11-03",
-        updated: "2026-03-10",
-    },
-    {
-        slug: "engineering-emotion",
-        title: "Engineering Emotion: Why I love cars",
-        snippet: "From roaring engines to sleek designs, cars aren't just machines.",
-        path: "/blog/cars",
-        published: "2025-12-02",
-        updated: "2026-03-10",
-    },
-    {
         slug: "securing",
         title: "Vulnerability Assessment",
         snippet: "KArt Everything Vulnerability Assessment",
