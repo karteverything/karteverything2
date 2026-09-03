@@ -8,7 +8,7 @@ export default function PersonalGrowth() {
 
         <div className="dates-container">
           <p id="date">Published: 13-05-2025</p>
-          <p id="date">Last Edited: Apr 25, 2026</p>
+          <p id="date">Last Edited: Sep 3, 2026</p>
         </div>
 
         <article>
@@ -31,27 +31,21 @@ export default function PersonalGrowth() {
 
             <tbody>
               <tr>
-                <td>C Language</td>
-                <td>Memory management, pointers, core concepts</td>
-                <td>Strengthening low-level foundations</td>
+                <td>C / C++</td>
+                <td>Memory management, pointers, data structures, core concepts</td>
+                <td>Strengthening low-level programming foundations</td>
               </tr>
 
               <tr>
-                <td>JavaScript</td>
-                <td>Advanced concepts, async behavior, DOM manipulation</td>
-                <td>Improving frontend logic and interactivity</td>
+                <td>JavaScript + React</td>
+                <td>Modern JavaScript, React fundamentals, state, components, and application architecture</td>
+                <td>Building more capable and maintainable frontend applications</td>
               </tr>
 
               <tr>
-                <td>Next.js</td>
-                <td>Routing, dynamic rendering, API routes</td>
-                <td>Making this site fully dynamic</td>
-              </tr>
-              
-              <tr>
-                <td>Cybersecurity</td>
-                <td>Threat analysis, vulnerability assessment, security fundamentals</td>
-                <td>Developing a security-first mindset</td>
+                <td>Python</td>
+                <td>Backend development, APIs, automation, and application architecture</td>
+                <td>Building practical tools and backend systems</td>
               </tr>
             </tbody>
           </table>
@@ -60,30 +54,34 @@ export default function PersonalGrowth() {
 
           <ol>
             <li>
-              <strong>[ karteverything2 ]</strong> <br />
-              A dynamic version of karteverything
-              built with Next.js, focusing on scalability and modern
-              architecture.
+              <strong>[ karteverything ]</strong> <br />
+              A dynamic version of karteverything built with Next.js. Currently
+              working on the backend using FastAPI, with a focus on building a
+              scalable and maintainable architecture.
             </li>
 
             <li>
-              <strong>[ windows-nework-monitor ]</strong> <br />
-              A lightweight Python tool that displays real-time upload and download speeds directly from the Windows taskbar.
+              <strong>[ windows-network-monitor ]</strong> <br />
+              A lightweight Python tool that displays real-time upload and
+              download speeds directly from the Windows taskbar. The network
+              monitoring functionality is currently working, with CPU, RAM, and
+              other system statistics planned as the next step.
             </li>
 
             <li>
               <strong>[ sibitane-projects ]</strong> <br />
-              A construction consulting
-              website designed for professionalism.
+              A construction consulting website designed with a focus on
+              professionalism, usability, and a clean presentation.
             </li>
           </ol>
 
           <h2>Current Goals</h2>
 
           <p>
-            Right now, mastering foundations while building real-world
-            projects. The goal isn't just to learn tools, but to understand
-            systems.
+            Right now, the focus is on strengthening programming fundamentals
+            while continuing to build real-world projects. The goal isn't just
+            to learn tools, but to understand how the systems behind them work
+            and how they fit together.
           </p>
         </article>
 
