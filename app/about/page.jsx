@@ -123,7 +123,7 @@ export default function About() {
                     <p>The areas I explored include:</p>
                     <ul>
                         <li>API Security Risk Analysis</li>
-                        <li>Identifying and assessing commo security vulnerabilitites</li>
+                        <li>Identifying and assessing common security vulnerabilitites</li>
                         <li>Security risk evaluation and mitigation strategies</li>
                         <li>Technical documentation and reporting</li>
                         <li>Applying cybersecurity concepts to real-world scenarios</li>
