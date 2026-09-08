@@ -12,7 +12,7 @@ export default function Footer() {
         <footer className="footer-container">
             <div className="bottom-bar">
 
-                <a href="/admin" target="blank">
+                <a href={process.env.NEXT_PUBLIC_ADMIN_URL} target="blank">
                     &copy; KArt Everything
                 </a>
 
