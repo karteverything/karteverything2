@@ -15,6 +15,7 @@ app.add_middleware(
     allow_origins=[
         settings.frontend_url,
         "http://localhost:5173",
+        "https://karteverything-admin.vercel.app",
     ],
     allow_credentials=True,
     allow_methods=["*"],
