@@ -55,6 +55,11 @@ export default function Portraiture() {
 
   const handleSeeLess = () => {
     setVisibleCount(10);
+
+    document.getElementById("portraiture")?.scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+    });
   };
 
   if (!images.length) {
