@@ -715,6 +715,29 @@ ul {
     opacity: 0;
 }
 
+/* see more + see less */
+.see-more-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 40px;
+}
+
+.see-more-button {
+    padding: 12px 28px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: transform 0.2s ease, opacity 0.2s ease;
+    background-color: #999;
+}
+
+.see-more-button:hover {
+    transform: translateY(-2px);
+    opacity: 0.85;
+    background-color: #708090;
+}
+
 @keyframes galleryFadeUp {
     from {
         opacity: 0;
