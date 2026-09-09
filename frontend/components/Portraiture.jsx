@@ -19,6 +19,9 @@ export default function Portraiture() {
   const [images, setImages] = useState([]);
   const [loadedImages, setLoadedImages] = useState({});
 
+  // Number of images currently visible
+  const [visibleCount, setVisibleCount] = useState(10);
+
   useEffect(() => {
     async function fetchImages() {
       const { data, error } = await supabase
@@ -44,7 +47,15 @@ export default function Portraiture() {
       ...prev,
       [id]: true,
     }));
-  }
+  };
+
+  const handleSeeMore = () => {
+    setVisibleCount((prev) => prev + 10);
+  };
+
+  const handleSeeLess = () => {
+    setVisibleCount(10);
+  };
 
   if (!images.length) {
     return (
@@ -56,35 +67,63 @@ export default function Portraiture() {
         ))}
       </div>
     );
-  } 
+  }
+
+  const visibleImages = images.slice(0, visibleCount);
 
   return (
-    <div className="gallery-grid">
-      {images.map((img, index) => (
-        <div 
-          key={img.id} 
-          className="grid-item"
-          style={{ animationDelay: `${index * 70}ms` }}
+    <>
+      <div className="gallery-grid">
+        {visibleImages.map((img, index) => (
+          <div
+            key={img.id}
+            className="grid-item"
+            style={{ animationDelay: `${index * 70}ms` }}
           >
+            <div className="image-wrapper">
+              {!loadedImages[img.id] && (
+                <div className="image-skeleton"></div>
+              )}
 
-          <div className="image-wrapper">
-            {!loadedImages[img.id] && <div className="image-skeleton"></div>}
+              <img
+                src={img.image_url}
+                alt={img.title ?? ""}
+                loading="lazy"
+                decoding="async"
+                onLoad={() => handleImageLoad(img.id)}
+                className={loadedImages[img.id] ? "loaded" : ""}
+              />
 
-            <img
-              src={img.image_url}
-              alt={img.title ?? ""}
-              loading="lazy"
-              decoding="async"
-              onLoad={() => handleImageLoad(img.id)}
-              className={loadedImages[img.id] ? "loaded" : ""}
-            />
-
-            <div className="caption">
-              {img.title ?? ""}
+              <div className="caption">
+                {img.title ?? ""}
+              </div>
             </div>
           </div>
+        ))}
+      </div>
+
+      {/* Gallery controls */}
+      {images.length > 10 && (
+        <div className="see-more-container">
+
+          {visibleCount < images.length ? (
+            <button
+              onClick={handleSeeMore}
+              className="see-more-button"
+            >
+              See more
+            </button>
+          ) : (
+            <button
+              onClick={handleSeeLess}
+              className="see-more-button"
+            >
+              See less
+            </button>
+          )}
+
         </div>
-      ))}
-    </div>
+      )}
+    </>
   );
 }
