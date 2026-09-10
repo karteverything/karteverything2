@@ -18,9 +18,17 @@ export const blogPosts = [
     {
         slug: "securing",
         title: "Vulnerability Assessment",
-        snippet: "KArt Everything Vulnerability Assessment",
+        snippet: "KArt Everything Vulnerability Assessment.",
         path: "/blog/securing",
         published: "2026-06-11",
         updated: "",
+    },
+    {
+        slug: "fastapi backend",
+        title: "FastAPI Backend",
+        snippet: "See how I integrated FastAPI for my Portraiture Gallery.",
+        path: "/blog/backend",
+        published: "2026-09-10",
+        updated: "2026-09-10",
     },
 ];
