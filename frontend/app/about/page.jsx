@@ -47,6 +47,7 @@ export default function About() {
                         <li>Systems Analysis and Design</li>
                         <li>Git & GitHub workflows</li>
                         <li>Database Management, Systems, and Design</li>
+                        <li>Basic Computer Troubleshooting</li>
                         <li>Network Architecture and Security</li>
                     </ul>
                 </div>
@@ -93,7 +94,7 @@ export default function About() {
                             >
                                 Introduction to Cloud Computing
                             </a>
-                            <small>Simplilearn</small>
+                            <small>SkillUp | Simplilearn</small>
                         </li>
                         <li>
                             <a 
