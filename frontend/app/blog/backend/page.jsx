@@ -200,8 +200,7 @@ export default function FastAPIBackend() {
                     <h2>Tracking Storage Paths</h2>
 
                     <p>
-                        One important improvement I made was adding a dedicated
-                        <code>storage_path</code> field to the portraits database table.
+                        One important improvement I made was adding a dedicated <code>storage_path</code> field to the portraits database table.
                     </p>
 
                     <p>
