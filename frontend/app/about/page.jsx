@@ -42,7 +42,7 @@ export default function About() {
                     <ul>
                         <li>
                             Languages and Frameworks: <br />
-                            [Python | HTML | CSS | JavaScript | NextJS]
+                            [ HTML | CSS | JavaScript | Python | ReactJS | FastAPI ]
                         </li>
                         <li>Systems Analysis and Design</li>
                         <li>Git & GitHub workflows</li>
