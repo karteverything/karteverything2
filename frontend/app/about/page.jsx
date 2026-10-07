@@ -117,10 +117,7 @@ export default function About() {
                         Future Interns <br></br>
                         June 2026 - July 2026
                     </p>
-                    <p>
-                        Over the course of this internship, I had the opportunity to strengthen my understanding of cybersecurity by
-                        working on hands-on tasks that challenged me to think both like an attacker and a defender. 
-                    </p>
+                    
                     <p>The areas I explored include:</p>
                     <ul>
                         <li>API Security Risk Analysis</li>
