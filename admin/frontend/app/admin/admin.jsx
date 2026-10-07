@@ -1,20 +1,10 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-
 import supabase from "../../lib/supabase";
-
-import {
-    getGallery,
-    uploadImage,
-    renameImage,
-    deleteImages,
-} from "../../lib/api";
-
+import { getGallery, uploadImage, renameImage, deleteImages } from "../../lib/api";
 import "./admin.css";
-
 
 const SESSION_LIMIT = 10 * 60 * 1000;
 const INACTIVITY_LIMIT = 10 * 60 * 1000;
-
 
 function formatBytes(bytes) {
     if (!bytes || bytes <= 0) {
@@ -49,7 +39,6 @@ function formatDate(dateString) {
         year: "numeric",
     }).format(date);
 }
-
 
 function formatRelativeDate(dateString) {
     if (!dateString) {
@@ -87,7 +76,6 @@ function formatRelativeDate(dateString) {
 
     return formatDate(dateString);
 }
-
 
 function Icon({ name, size = 20 }) {
     const common = {
@@ -218,7 +206,6 @@ function Icon({ name, size = 20 }) {
             return null;
     }
 }
-
 
 function StatCard({
     label,
