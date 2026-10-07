@@ -580,7 +580,10 @@ ul {
   }
 }
 
-/* portraiture section */
+/* =========================================
+   PORTRAITURE SECTION
+========================================= */
+
 .gallery {
     background-color: var(--bg-page);
 }
@@ -589,14 +592,22 @@ ul {
     display: inline-flex;
     flex-direction: column;
     align-items: center;
+
+    width: 100%;
     padding: 90px 20px;
+
     box-sizing: border-box;
     overflow: hidden;
 }
 
-/* title */
+/* =========================================
+   TITLE
+========================================= */
+
 .gallery-title {
+    width: 100%;
     text-align: center;
+
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -605,6 +616,7 @@ ul {
 .gallery-title h2 {
     font-size: 1.2rem;
     color: var(--text-main-light);
+
     margin-bottom: 10px;
     padding-bottom: 10px;
 }
@@ -618,153 +630,394 @@ ul {
     margin-bottom: 50px;
 }
 
-/* masonry gallery */
-.gallery-grid {
+
+/* =========================================
+   PORTRAITURE SLIDESHOW
+========================================= */
+
+.portraiture-slider {
+    position: relative;
+
     width: 100%;
     max-width: 1100px;
-    margin-top: 30px;
 
-    column-count: 3;
-    column-gap: 16px;
-}
+    margin: 30px auto 0;
 
-.grid-item {
-    break-inside: avoid;
-    margin-bottom: 16px;
-}
-
-.image-wrapper {
-    position: relative;
     overflow: hidden;
-    border-radius: 10px;
 }
 
-.image-wrapper img {
+
+/* Three-image track */
+
+.slider-track {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
     width: 100%;
-    height: auto;
+    min-height: 600px;
+
+    gap: 16px;
+}
+
+
+/* =========================================
+   SLIDES
+========================================= */
+
+.slide {
+    position: relative;
+
+    overflow: hidden;
+
+    border-radius: 10px;
+
+    background-color: var(--bg-page);
+
+    flex-shrink: 0;
+}
+
+.slide img {
     display: block;
+
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+
     border-radius: 10px;
 }
 
-/* caption overlay */
-.caption {
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-    padding: 10px;
-    font-size: 14px;
-    color: white;
-    background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
+
+/* Side images */
+
+.side-slide {
+    width: 25%;
+    height: 500px;
+
+    opacity: 0.55;
+
+    cursor: pointer;
+
+    transform: scale(0.9);
+
+    transition:
+        opacity 0.5s ease,
+        transform 0.5s ease;
+}
+
+.side-slide:hover {
+    opacity: 0.8;
+    transform: scale(0.93);
+}
+
+
+/* Main image */
+
+.main-slide {
+    width: 46%;
+    height: 600px;
+
+    z-index: 2;
+
+    box-shadow:
+        0 15px 40px rgba(0, 0, 0, 0.15);
+}
+
+
+/* =========================================
+   IMAGE LOADING
+========================================= */
+
+.main-slide img {
     opacity: 0;
-    transition: opacity 0.3s ease;
-}
 
-.image-wrapper:hover .caption {
-    opacity: 1;
-}
-
-/* skeleton placeholders */
-.image-skeleton {
-    width: 100%;
-    min-height: 250px;
-    border-radius: 10px;
-    background: linear-gradient(
-        90deg,
-        rgba(230,230,230,0.6) 25%,
-        rgba(245,245,245,0.9) 50%,
-        rgba(230,230,230,0.6) 75%
-    );
-    background-size: 400% 100%;
-    animation: shimmer 1.4s infinite;
-}
-
-@keyframes shimmer {
-    0% { background-position: 100% 0; }
-    100% { background-position: -100% 0; }
-}
-
-/* image fade in */
-.image-wrapper img {
-    width: 100%;
-    height: auto;
-    display: block;
-    border-radius: 10px;
-
-    opacity: 0;
     transform: scale(1.03);
+
     transition:
         opacity 0.8s ease,
         transform 0.8s ease;
 }
 
-.image-wrapper img.loaded {
+.main-slide img.loaded {
     opacity: 1;
     transform: scale(1);
 }
 
-/* smoother hover */
-.image-wrapper img:hover {
-    transform: scale(1.02);
+
+/* =========================================
+   SIDE IMAGE OVERLAY
+========================================= */
+
+.slide-overlay {
+    position: absolute;
+
+    inset: 0;
+
+    background: rgba(0, 0, 0, 0.25);
+
+    pointer-events: none;
+
+    transition: background 0.3s ease;
 }
 
-/* slight card entrance */
-.grid-item {
-    break-inside: avoid;
-    margin-bottom: 16px;
-    animation: galleryFadeUp 0.8s ease forwards;
-    opacity: 0;
+.side-slide:hover .slide-overlay {
+    background: rgba(0, 0, 0, 0.12);
 }
 
-/* see more + see less */
-.see-more-container {
+
+/* =========================================
+   CAPTION
+========================================= */
+
+.slide-caption {
+    position: absolute;
+
+    left: 0;
+    right: 0;
+    bottom: 0;
+
+    padding: 45px 20px 18px;
+
+    color: white;
+
+    font-size: 14px;
+
+    text-align: left;
+
+    background: linear-gradient(
+        to top,
+        rgba(0, 0, 0, 0.7),
+        transparent
+    );
+}
+
+
+/* =========================================
+   NAVIGATION ARROWS
+========================================= */
+
+.slider-arrow {
+    position: absolute;
+
+    top: 50%;
+
+    transform: translateY(-50%);
+
+    width: 44px;
+    height: 44px;
+
     display: flex;
+    align-items: center;
     justify-content: center;
-    margin-top: 40px;
-}
 
-.see-more-button {
-    padding: 12px 28px;
     border: none;
-    border-radius: 6px;
+    border-radius: 50%;
+
+    background-color: rgba(255, 255, 255, 0.9);
+
+    color: var(--text-main);
+
+    font-size: 20px;
+
     cursor: pointer;
-    font-size: 1rem;
-    transition: transform 0.2s ease, opacity 0.2s ease;
-    background-color: #999;
+
+    z-index: 10;
+
+    transition:
+        transform 0.2s ease,
+        opacity 0.2s ease,
+        background-color 0.2s ease;
 }
 
-.see-more-button:hover {
-    transform: translateY(-2px);
-    opacity: 0.85;
-    background-color: #708090;
+.slider-arrow:hover {
+    transform: translateY(-50%) scale(1.08);
+
+    opacity: 0.9;
+
+    background-color: white;
 }
 
-@keyframes galleryFadeUp {
-    from {
-        opacity: 0;
-        transform: translateY(18px);
+.slider-arrow-left {
+    left: 16px;
+}
+
+.slider-arrow-right {
+    right: 16px;
+}
+
+
+/* =========================================
+   SLIDER DOTS
+========================================= */
+
+.slider-dots {
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    gap: 7px;
+
+    margin-top: 24px;
+}
+
+.slider-dot {
+    width: 7px;
+    height: 7px;
+
+    padding: 0;
+
+    border: none;
+    border-radius: 50%;
+
+    background-color: #aaa;
+
+    cursor: pointer;
+
+    transition:
+        width 0.25s ease,
+        background-color 0.25s ease;
+}
+
+.slider-dot.active {
+    width: 22px;
+
+    border-radius: 10px;
+
+    background-color: var(--text-main);
+}
+
+
+/* =========================================
+   LOADING SKELETON
+========================================= */
+
+.image-skeleton {
+    position: absolute;
+
+    inset: 0;
+
+    width: 100%;
+    height: 100%;
+
+    border-radius: 10px;
+
+    background: linear-gradient(
+        90deg,
+        rgba(230, 230, 230, 0.6) 25%,
+        rgba(245, 245, 245, 0.9) 50%,
+        rgba(230, 230, 230, 0.6) 75%
+    );
+
+    background-size: 400% 100%;
+
+    animation: shimmer 1.4s infinite;
+}
+
+@keyframes shimmer {
+    0% {
+        background-position: 100% 0;
     }
-    to {
-        opacity: 1;
-        transform: translateY(0);
+
+    100% {
+        background-position: -100% 0;
     }
 }
 
-/* mobile */
+
+/* =========================================
+   SLIDESHOW LOADING STATE
+========================================= */
+
+.portraiture-slider.loading {
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    min-height: 600px;
+}
+
+.slider-skeleton {
+    width: 30%;
+    height: 500px;
+
+    margin: 0 8px;
+
+    border-radius: 10px;
+
+    background: linear-gradient(
+        90deg,
+        rgba(230, 230, 230, 0.6) 25%,
+        rgba(245, 245, 245, 0.9) 50%,
+        rgba(230, 230, 230, 0.6) 75%
+    );
+
+    background-size: 400% 100%;
+
+    animation: shimmer 1.4s infinite;
+}
+
+
+/* =========================================
+   TABLET
+========================================= */
+
+@media (max-width: 900px) {
+
+    .slider-track {
+        min-height: 500px;
+        gap: 12px;
+    }
+
+    .side-slide {
+        width: 21%;
+        height: 420px;
+    }
+
+    .main-slide {
+        width: 56%;
+        height: 500px;
+    }
+
+    .slider-arrow-left {
+        left: 10px;
+    }
+
+    .slider-arrow-right {
+        right: 10px;
+    }
+}
+
+
+/* =========================================
+   MOBILE
+========================================= */
+
 @media (max-width: 768px) {
+
     #portraiture.gallery {
         display: block;
+
         padding: 70px 0;
+
         width: 100%;
     }
 
     .gallery-title {
         margin-bottom: 50px;
+
+        padding: 0 20px;
+
         text-align: left;
+
         align-items: flex-start;
     }
 
     .gallery-title h2 {
         font-size: 1.3rem;
+
         text-align: left;
     }
 
@@ -772,28 +1025,105 @@ ul {
         font-size: 1rem;
     }
 
-    .caption {
-        font-size: 12px;
+    .sunset-quote {
+        margin-bottom: 25px;
     }
 
-    .gallery-grid {
-        column-count: 2;   /* exactly 2 frames */
-        column-gap: 12px;
+
+    /* =====================================
+       MOBILE SLIDESHOW
+    ===================================== */
+
+    .portraiture-slider {
         width: 100%;
+
         margin-top: 20px;
-        max-width: 100%;
     }
 
-    .grid-item {
-        margin-bottom: 12px;
+    .slider-track {
+        min-height: 430px;
+
+        gap: 8px;
     }
 
-    .image-wrapper,
-    .image-wrapper img,
-    .image-skeleton {
+
+    /*
+     * Keep the neighboring images visible,
+     * but make them narrow so the center
+     * image remains the focus.
+     */
+
+    .side-slide {
+        width: 12%;
+        height: 330px;
+
+        opacity: 0.4;
+
+        border-radius: 8px;
+
+        transform: scale(0.9);
+    }
+
+    .side-slide:hover {
+        transform: scale(0.9);
+    }
+
+
+    .main-slide {
+        width: 70%;
+        height: 430px;
+
         border-radius: 8px;
     }
+
+    .slide img {
+        border-radius: 8px;
+    }
+
+
+    /* Caption */
+
+    .slide-caption {
+        font-size: 12px;
+
+        padding: 35px 14px 14px;
+    }
+
+
+    /* Arrows */
+
+    .slider-arrow {
+        width: 36px;
+        height: 36px;
+
+        font-size: 17px;
+    }
+
+    .slider-arrow-left {
+        left: 5px;
+    }
+
+    .slider-arrow-right {
+        right: 5px;
+    }
+
+
+    /* Dots */
+
+    .slider-dots {
+        margin-top: 18px;
+    }
+
+    .slider-dot {
+        width: 6px;
+        height: 6px;
+    }
+
+    .slider-dot.active {
+        width: 20px;
+    }
 }
+
 
 /* blog section */
 #blog {

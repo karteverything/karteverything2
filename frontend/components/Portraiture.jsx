@@ -3,7 +3,6 @@
 import { useEffect, useState } from "react";
 import supabase from "@/lib/supabase";
 
-// fisher-yates shuffle helper
 function shuffle(arr) {
   const array = [...arr];
 
@@ -17,10 +16,8 @@ function shuffle(arr) {
 
 export default function Portraiture() {
   const [images, setImages] = useState([]);
+  const [currentIndex, setCurrentIndex] = useState(0);
   const [loadedImages, setLoadedImages] = useState({});
-
-  // Number of images currently visible
-  const [visibleCount, setVisibleCount] = useState(10);
 
   useEffect(() => {
     async function fetchImages() {
@@ -42,6 +39,17 @@ export default function Portraiture() {
     fetchImages();
   }, []);
 
+  // Automatically move to the next image
+  useEffect(() => {
+    if (images.length <= 1) return;
+
+    const interval = setInterval(() => {
+      setCurrentIndex((prev) => (prev + 1) % images.length);
+    }, 4500);
+
+    return () => clearInterval(interval);
+  }, [images.length]);
+
   const handleImageLoad = (id) => {
     setLoadedImages((prev) => ({
       ...prev,
@@ -49,86 +57,136 @@ export default function Portraiture() {
     }));
   };
 
-  const handleSeeMore = () => {
-    setVisibleCount((prev) => prev + 10);
+  const goToPrevious = () => {
+    setCurrentIndex((prev) =>
+      prev === 0 ? images.length - 1 : prev - 1
+    );
   };
 
-  const handleSeeLess = () => {
-    setVisibleCount(10);
-
-    document.getElementById("portraiture")?.scrollIntoView({
-      behavior: "smooth",
-      block: "start",
-    });
+  const goToNext = () => {
+    setCurrentIndex((prev) => (prev + 1) % images.length);
   };
 
   if (!images.length) {
     return (
-      <div className="gallery-grid skeleton-grid">
-        {Array.from({ length: 8 }).map((_, i) => (
-          <div key={i} className="grid-item">
-            <div className="image-skeleton"></div>
-          </div>
-        ))}
+      <div className="portraiture-slider loading">
+        <div className="slider-skeleton"></div>
+        <div className="slider-skeleton"></div>
+        <div className="slider-skeleton"></div>
       </div>
     );
   }
 
-  const visibleImages = images.slice(0, visibleCount);
+  /*
+   * Get an image relative to the current image.
+   * This allows the carousel to loop infinitely.
+   */
+  const getImage = (offset) => {
+    return images[
+      (currentIndex + offset + images.length) % images.length
+    ];
+  };
+
+  const previousImage = getImage(-1);
+  const currentImage = getImage(0);
+  const nextImage = getImage(1);
 
   return (
-    <>
-      <div className="gallery-grid">
-        {visibleImages.map((img, index) => (
-          <div
-            key={img.id}
-            className="grid-item"
-            style={{ animationDelay: `${index * 70}ms` }}
-          >
-            <div className="image-wrapper">
-              {!loadedImages[img.id] && (
-                <div className="image-skeleton"></div>
-              )}
+    <div className="portraiture-slider">
 
-              <img
-                src={img.image_url}
-                alt={img.title ?? ""}
-                loading="lazy"
-                decoding="async"
-                onLoad={() => handleImageLoad(img.id)}
-                className={loadedImages[img.id] ? "loaded" : ""}
-              />
+      <div className="slider-track">
 
-              <div className="caption">
-                {img.title ?? ""}
-              </div>
-            </div>
-          </div>
-        ))}
-      </div>
+        {/* Previous image */}
+        <div
+          className="slide side-slide previous-slide"
+          onClick={goToPrevious}
+        >
+          <img
+            src={previousImage.image_url}
+            alt={previousImage.title ?? ""}
+            loading="lazy"
+            decoding="async"
+            onLoad={() => handleImageLoad(previousImage.id)}
+          />
 
-      {/* Gallery controls */}
-      {images.length > 10 && (
-        <div className="see-more-container">
+          <div className="slide-overlay"></div>
+        </div>
 
-          {visibleCount < images.length ? (
-            <button
-              onClick={handleSeeMore}
-              className="see-more-button"
-            >
-              See more
-            </button>
-          ) : (
-            <button
-              onClick={handleSeeLess}
-              className="see-more-button"
-            >
-              See less
-            </button>
+        {/* Main image */}
+        <div className="slide main-slide">
+          {!loadedImages[currentImage.id] && (
+            <div className="image-skeleton"></div>
           )}
 
+          <img
+            src={currentImage.image_url}
+            alt={currentImage.title ?? ""}
+            loading="eager"
+            decoding="async"
+            onLoad={() => handleImageLoad(currentImage.id)}
+            className={loadedImages[currentImage.id] ? "loaded" : ""}
+          />
+
+          <div className="slide-caption">
+            {currentImage.title ?? ""}
+          </div>
+        </div>
+
+        {/* Next image */}
+        <div
+          className="slide side-slide next-slide"
+          onClick={goToNext}
+        >
+          <img
+            src={nextImage.image_url}
+            alt={nextImage.title ?? ""}
+            loading="lazy"
+            decoding="async"
+            onLoad={() => handleImageLoad(nextImage.id)}
+          />
+
+          <div className="slide-overlay"></div>
+        </div>
+
+      </div>
+
+      {/* Navigation arrows */}
+      {images.length > 1 && (
+        <>
+          <button
+            className="slider-arrow slider-arrow-left"
+            onClick={goToPrevious}
+            aria-label="Previous image"
+          >
+            &#10094;
+          </button>
+
+          <button
+            className="slider-arrow slider-arrow-right"
+            onClick={goToNext}
+            aria-label="Next image"
+          >
+            &#10095;
+          </button>
+        </>
+      )}
+
+      {/* Dots */}
+      {images.length > 1 && (
+        <div className="slider-dots">
+          {images.map((image, index) => (
+            <button
+              key={image.id}
+              className={`slider-dot ${
+                index === currentIndex ? "active" : ""
+              }`}
+              onClick={() => setCurrentIndex(index)}
+              aria-label={`Go to image ${index + 1}`}
+            />
+          ))}
         </div>
       )}
-    </>
+
+    </div>
   );
 }
