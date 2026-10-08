@@ -482,7 +482,7 @@ ul {
 
 .project-technologies {
     display: block;
-    margin-top: auto;
+    margin-top: 0.5rem;
     font-size: 0.75rem;
     line-height: 1.6;
     color: var(--text-main-light);
