@@ -195,7 +195,7 @@ export default function About() {
                                     01
                                 </span>
 
-                                <h3>Shalati Vimbela</h3>
+                                <h3>Shalati Vimbela Restaurant</h3>
 
                                 <p>
                                     A web project designed and developed to bring a
