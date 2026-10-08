@@ -408,6 +408,163 @@ ul {
     color: var(--text-main-light);
 }
 
+/* =========================
+   PROOF OF WORK
+========================= */
+
+.proof-of-work {
+    flex: 1 1 100%;
+    width: 100%;
+    margin-top: 2rem;
+}
+
+.proof-header {
+    width: 100%;
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.proof-header .section-title {
+    margin-top: 2rem;
+    margin-bottom: 0.5rem;
+}
+
+.proof-header small {
+    color: var(--text-main-light);
+}
+
+.projects-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 2rem;
+    width: 100%;
+}
+
+.project-card {
+    background-color: #E0E0E0;
+    border-radius: 10px;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s ease;
+    min-height: 280px;
+}
+
+.project-card:hover {
+    transform: translateY(-5px);
+}
+
+.project-card-content {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.project-number {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    margin-bottom: 1rem;
+}
+
+.project-card h3 {
+    margin-bottom: 1rem;
+    color: var(--text-main-light);
+    font-size: 1rem;
+}
+
+.project-card p {
+    font-size: 0.8rem;
+    line-height: 1.6;
+    color: var(--text-main);
+    margin-bottom: 1.5rem;
+}
+
+.project-technologies {
+    display: block;
+    margin-top: auto;
+    font-size: 0.75rem;
+    line-height: 1.6;
+    color: var(--text-main-light);
+}
+
+.project-links {
+    display: flex;
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+}
+
+.project-links a {
+    position: relative;
+    display: inline-block;
+    color: var(--text-main);
+    text-decoration: none;
+    font-size: 0.8rem;
+    font-weight: 500;
+}
+
+.project-links a::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: -2px;
+    width: 0;
+    height: 1px;
+    background-color: currentColor;
+    transform: translateX(-50%);
+    transition: width 0.3s ease;
+}
+
+.project-links a:hover::after {
+    width: 100%;
+}
+
+/* =========================
+   PROOF OF WORK - MOBILE
+========================= */
+@media (max-width: 768px) {
+
+    .proof-of-work {
+        margin-top: 1rem;
+    }
+
+    .proof-header {
+        text-align: left;
+        margin-bottom: 1.5rem;
+    }
+
+    .proof-header .section-title {
+        text-align: left;
+        margin-top: 1.5rem;
+    }
+
+    .projects-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+
+    .project-card {
+        padding: 1.5rem;
+        min-height: auto;
+    }
+
+    .project-card h3 {
+        font-size: 1.1rem;
+    }
+
+    .project-card p {
+        font-size: 0.9rem;
+    }
+
+    .project-technologies {
+        font-size: 0.8rem;
+    }
+
+    .project-links a {
+        font-size: 0.85rem;
+    }
+}
+
 @media (max-width: 768px) {
     .column.full-width {
         flex-direction: column;
