@@ -183,6 +183,13 @@ export default function About() {
 
                     <div className="projects-grid">
                         <article className="project-card">
+                            <div className="project-thumbnail">
+                                <img 
+                                    src="shalati_vimbela.png" 
+                                    alt="Shalati Vimbela website preview" 
+                                />
+                            </div>
+
                             <div className="project-card-content">
                                 <span className="project-number">
                                     01
@@ -212,6 +219,13 @@ export default function About() {
                         </article>
 
                         <article className="project-card">
+                            <div className="project-thumbnail">
+                                <img 
+                                    src="3dsnaps.png" 
+                                    alt="3rd Dynamic Snaps a website preview" 
+                                />
+                            </div>
+
                             <div className="project-card-content">
                                 <span className="project-number">
                                     02
