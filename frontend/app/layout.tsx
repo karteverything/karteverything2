@@ -6,6 +6,9 @@ import { GoogleAnalytics } from '@next/third-parties/google';
 export const metadata = {
     title: "KArt Everything",
     description: "Kat's portfolio and journal",
+    verification: {
+        google: "FFSoDQ6KQVrHZBkayxpvlqwcl9u2pOXTXWzdnNbPJe0"
+    },
 };
 
 export default function RootLayout({ 
