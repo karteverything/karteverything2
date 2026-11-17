@@ -14,7 +14,7 @@ const services = [
     {
         icon: <FaTools />,
         title: "Other Services",
-        description: "Custom tech consultions and small digital support solutions.",
+        description: "Custom tech consultions and digital support solutions.",
     },
 ];
 
