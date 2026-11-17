@@ -58,7 +58,6 @@ export default function About() {
                     <p>
                         <strong>Diploma in Informatics</strong> <br />
                         Tshwane University of Technology <br />
-                        2023 - Present
                     </p>
 
                     <p>
