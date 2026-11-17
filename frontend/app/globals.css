@@ -765,31 +765,27 @@ ul {
 /* =========================================
    PORTRAITURE SECTION
 ========================================= */
-
 .gallery {
     background-color: var(--bg-page);
 }
 
 #portraiture.gallery {
-    display: inline-flex;
+    display: flex;
     flex-direction: column;
     align-items: center;
-
-    width: 100%;
     padding: 90px 20px;
-
+    width: 100%;
     box-sizing: border-box;
     overflow: hidden;
 }
 
 /* =========================================
-   TITLE
+   SECTION TITLE
 ========================================= */
 
 .gallery-title {
     width: 100%;
     text-align: center;
-
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -798,7 +794,6 @@ ul {
 .gallery-title h2 {
     font-size: 1.2rem;
     color: var(--text-main-light);
-
     margin-bottom: 10px;
     padding-bottom: 10px;
 }
@@ -812,54 +807,142 @@ ul {
     margin-bottom: 50px;
 }
 
-
 /* =========================================
-   PORTRAITURE SLIDESHOW
+   GALLERY PANEL
 ========================================= */
 
-.portraiture-slider {
-    position: relative;
-
+.portraiture-section {
     width: 100%;
-    max-width: 1100px;
+    max-width: 1200px;
+    margin: 20px auto 0;
+    padding: 35px;
+    box-sizing: border-box;
 
-    margin: 30px auto 0;
-
-    overflow: hidden;
+    background: #294c70;
+    color: white;
+    border-radius: 4px;
 }
 
+/* Heading */
 
-/* Three-image track */
+.portraiture-heading {
+    margin-bottom: 30px;
+}
 
-.slider-track {
+.portraiture-heading span {
+    font-size: 0.7rem;
+    letter-spacing: 3px;
+    color: #b9cce0;
+}
+
+.portraiture-heading h3 {
+    font-size: 1.6rem;
+    font-weight: 500;
+    margin-top: 10px;
+    color: white;
+}
+
+/* =========================================
+   CONTROLS
+========================================= */
+
+.portraiture-controls {
     display: flex;
     align-items: center;
-    justify-content: center;
-
-    width: 100%;
-    min-height: 600px;
-
-    gap: 16px;
+    justify-content: space-between;
+    margin-bottom: 18px;
 }
 
+.portraiture-controls > span {
+    font-size: 0.8rem;
+    color: #d1dce9;
+}
+
+.gallery-arrows {
+    display: flex;
+    gap: 8px;
+}
+
+.gallery-arrows button {
+    width: 38px;
+    height: 38px;
+
+    border: 1px solid rgba(255,255,255,0.35);
+    border-radius: 50%;
+
+    background: transparent;
+    color: white;
+
+    font-size: 20px;
+    cursor: pointer;
+
+    transition: background 0.25s ease;
+}
+
+.gallery-arrows button:hover {
+    background: rgba(255,255,255,0.2);
+}
 
 /* =========================================
-   SLIDES
+   HORIZONTAL GALLERY
 ========================================= */
 
-.slide {
+.portraiture-gallery {
+    display: flex;
+    gap: 16px;
+
+    width: 100%;
+
+    overflow-x: auto;
+    overflow-y: hidden;
+
+    scroll-behavior: smooth;
+    scroll-snap-type: x mandatory;
+
+    padding-bottom: 15px;
+
+    scrollbar-width: thin;
+    scrollbar-color: #a6b9ce #315477;
+}
+
+.portraiture-gallery::-webkit-scrollbar {
+    height: 5px;
+}
+
+.portraiture-gallery::-webkit-scrollbar-track {
+    background: #315477;
+}
+
+.portraiture-gallery::-webkit-scrollbar-thumb {
+    background: #a6b9ce;
+    border-radius: 10px;
+}
+
+/* =========================================
+   IMAGE CARDS
+========================================= */
+
+.portrait-card {
+    flex: 0 0 250px;
+    min-width: 0;
+
+    scroll-snap-align: start;
+
+    cursor: pointer;
+}
+
+.portrait-image {
     position: relative;
+
+    width: 100%;
+    aspect-ratio: 1 / 1;
 
     overflow: hidden;
 
-    border-radius: 10px;
-
-    background-color: var(--bg-page);
-
-    flex-shrink: 0;
+    background: #294c70;
 }
 
-.slide img {
+.portrait-image img {
     display: block;
 
     width: 100%;
@@ -867,311 +950,169 @@ ul {
 
     object-fit: cover;
 
-    border-radius: 10px;
-}
-
-
-/* Side images */
-
-.side-slide {
-    width: 25%;
-    height: 500px;
-
-    opacity: 0.55;
-
-    cursor: pointer;
-
-    transform: scale(0.9);
-
-    transition:
-        opacity 0.5s ease,
-        transform 0.5s ease;
-}
-
-.side-slide:hover {
-    opacity: 0.8;
-    transform: scale(0.93);
-}
-
-
-/* Main image */
-
-.main-slide {
-    width: 46%;
-    height: 600px;
-
-    z-index: 2;
-
-    box-shadow:
-        0 15px 40px rgba(0, 0, 0, 0.15);
-}
-
-
-/* =========================================
-   IMAGE LOADING
-========================================= */
-
-.main-slide img {
     opacity: 0;
-
     transform: scale(1.03);
 
     transition:
-        opacity 0.8s ease,
-        transform 0.8s ease;
+        opacity 0.6s ease,
+        transform 0.6s ease;
 }
 
-.main-slide img.loaded {
+.portrait-image img.loaded {
     opacity: 1;
     transform: scale(1);
 }
 
+.portrait-card:hover img {
+    transform: scale(1.06);
+}
 
-/* =========================================
-   SIDE IMAGE OVERLAY
-========================================= */
+/* Image hover overlay */
 
-.slide-overlay {
+.portrait-overlay {
     position: absolute;
-
     inset: 0;
 
-    background: rgba(0, 0, 0, 0.25);
+    display: flex;
+    align-items: flex-end;
 
-    pointer-events: none;
-
-    transition: background 0.3s ease;
-}
-
-.side-slide:hover .slide-overlay {
-    background: rgba(0, 0, 0, 0.12);
-}
-
-
-/* =========================================
-   CAPTION
-========================================= */
-
-.slide-caption {
-    position: absolute;
-
-    left: 0;
-    right: 0;
-    bottom: 0;
-
-    padding: 45px 20px 18px;
-
-    color: white;
-
-    font-size: 14px;
-
-    text-align: left;
+    padding: 18px;
 
     background: linear-gradient(
         to top,
-        rgba(0, 0, 0, 0.7),
-        transparent
+        rgba(0,0,0,0.65),
+        transparent 55%
     );
+
+    opacity: 0;
+    transition: opacity 0.3s ease;
 }
 
-
-/* =========================================
-   NAVIGATION ARROWS
-========================================= */
-
-.slider-arrow {
-    position: absolute;
-
-    top: 50%;
-
-    transform: translateY(-50%);
-
-    width: 44px;
-    height: 44px;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    border: none;
-    border-radius: 50%;
-
-    background-color: rgba(255, 255, 255, 0.9);
-
-    color: var(--text-main);
-
-    font-size: 20px;
-
-    cursor: pointer;
-
-    z-index: 10;
-
-    transition:
-        transform 0.2s ease,
-        opacity 0.2s ease,
-        background-color 0.2s ease;
+.portrait-card:hover .portrait-overlay {
+    opacity: 1;
 }
 
-.slider-arrow:hover {
-    transform: translateY(-50%) scale(1.08);
-
-    opacity: 0.9;
-
-    background-color: white;
+.portrait-overlay span {
+    color: white;
+    font-size: 0.8rem;
 }
 
-.slider-arrow-left {
-    left: 16px;
+/* Captions */
+
+.portrait-caption {
+    padding: 12px 2px;
+
+    color: white;
+    font-size: 0.85rem;
 }
-
-.slider-arrow-right {
-    right: 16px;
-}
-
-
-/* =========================================
-   SLIDER DOTS
-========================================= */
-
-.slider-dots {
-    display: flex;
-
-    align-items: center;
-    justify-content: center;
-
-    gap: 7px;
-
-    margin-top: 24px;
-}
-
-.slider-dot {
-    width: 7px;
-    height: 7px;
-
-    padding: 0;
-
-    border: none;
-    border-radius: 50%;
-
-    background-color: #aaa;
-
-    cursor: pointer;
-
-    transition:
-        width 0.25s ease,
-        background-color 0.25s ease;
-}
-
-.slider-dot.active {
-    width: 22px;
-
-    border-radius: 10px;
-
-    background-color: var(--text-main);
-}
-
 
 /* =========================================
    LOADING SKELETON
 ========================================= */
 
-.image-skeleton {
+.portrait-skeleton {
     position: absolute;
-
     inset: 0;
-
-    width: 100%;
-    height: 100%;
-
-    border-radius: 10px;
 
     background: linear-gradient(
         90deg,
-        rgba(230, 230, 230, 0.6) 25%,
-        rgba(245, 245, 245, 0.9) 50%,
-        rgba(230, 230, 230, 0.6) 75%
+        #294c70 25%,
+        #3b5e82 50%,
+        #294c70 75%
     );
 
     background-size: 400% 100%;
-
     animation: shimmer 1.4s infinite;
 }
 
+.loading-gallery .portrait-skeleton {
+    position: relative;
+    flex: 0 0 250px;
+    aspect-ratio: 1 / 1;
+}
+
 @keyframes shimmer {
-    0% {
+    from {
         background-position: 100% 0;
     }
-
-    100% {
+    to {
         background-position: -100% 0;
     }
 }
 
-
 /* =========================================
-   SLIDESHOW LOADING STATE
+   SCROLL HINT
 ========================================= */
 
-.portraiture-slider.loading {
+.gallery-scroll-hint {
     display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
 
+    margin-top: 25px;
+}
+
+.gallery-scroll-hint span {
+    width: 30px;
+    height: 1px;
+    background: #8ca6c1;
+}
+
+.gallery-scroll-hint p {
+    font-size: 0.65rem;
+    letter-spacing: 2px;
+    color: #b9cce0;
+}
+
+/* =========================================
+   LIGHTBOX
+========================================= */
+
+.portrait-lightbox {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+
+    display: flex;
     align-items: center;
     justify-content: center;
 
-    min-height: 600px;
+    padding: 30px;
+
+    background: rgba(0,0,0,0.94);
 }
 
-.slider-skeleton {
-    width: 30%;
-    height: 500px;
-
-    margin: 0 8px;
-
-    border-radius: 10px;
-
-    background: linear-gradient(
-        90deg,
-        rgba(230, 230, 230, 0.6) 25%,
-        rgba(245, 245, 245, 0.9) 50%,
-        rgba(230, 230, 230, 0.6) 75%
-    );
-
-    background-size: 400% 100%;
-
-    animation: shimmer 1.4s infinite;
+.lightbox-content {
+    max-width: 1000px;
+    max-height: 90vh;
+    text-align: center;
 }
 
-
-/* =========================================
-   TABLET
-========================================= */
-
-@media (max-width: 900px) {
-
-    .slider-track {
-        min-height: 500px;
-        gap: 12px;
-    }
-
-    .side-slide {
-        width: 21%;
-        height: 420px;
-    }
-
-    .main-slide {
-        width: 56%;
-        height: 500px;
-    }
-
-    .slider-arrow-left {
-        left: 10px;
-    }
-
-    .slider-arrow-right {
-        right: 10px;
-    }
+.lightbox-content img {
+    display: block;
+    max-width: 100%;
+    max-height: 80vh;
+    object-fit: contain;
 }
 
+.lightbox-content p {
+    color: white;
+    margin-top: 15px;
+}
+
+.lightbox-close {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+
+    border: none;
+    background: none;
+
+    color: white;
+    font-size: 40px;
+    cursor: pointer;
+}
 
 /* =========================================
    MOBILE
@@ -1181,26 +1122,19 @@ ul {
 
     #portraiture.gallery {
         display: block;
-
         padding: 70px 0;
-
-        width: 100%;
     }
 
     .gallery-title {
-        margin-bottom: 50px;
-
         padding: 0 20px;
-
-        text-align: left;
+        margin-bottom: 35px;
 
         align-items: flex-start;
+        text-align: left;
     }
 
     .gallery-title h2 {
         font-size: 1.3rem;
-
-        text-align: left;
     }
 
     .gallery-title p {
@@ -1211,101 +1145,47 @@ ul {
         margin-bottom: 25px;
     }
 
-
-    /* =====================================
-       MOBILE SLIDESHOW
-    ===================================== */
-
-    .portraiture-slider {
-        width: 100%;
-
-        margin-top: 20px;
+    .portraiture-section {
+        padding: 25px 18px;
+        border-radius: 0;
     }
 
-    .slider-track {
-        min-height: 430px;
-
-        gap: 8px;
+    .portraiture-heading h3 {
+        font-size: 1.35rem;
     }
 
-
-    /*
-     * Keep the neighboring images visible,
-     * but make them narrow so the center
-     * image remains the focus.
-     */
-
-    .side-slide {
-        width: 12%;
-        height: 330px;
-
-        opacity: 0.4;
-
-        border-radius: 8px;
-
-        transform: scale(0.9);
+    .portrait-card {
+        flex: 0 0 210px;
     }
 
-    .side-slide:hover {
-        transform: scale(0.9);
+    .portrait-image {
+        aspect-ratio: 1 / 1;
     }
 
-
-    .main-slide {
-        width: 70%;
-        height: 430px;
-
-        border-radius: 8px;
+    .portrait-overlay {
+        display: none;
     }
 
-    .slide img {
-        border-radius: 8px;
+    .portrait-caption {
+        font-size: 0.8rem;
     }
 
-
-    /* Caption */
-
-    .slide-caption {
-        font-size: 12px;
-
-        padding: 35px 14px 14px;
-    }
-
-
-    /* Arrows */
-
-    .slider-arrow {
-        width: 36px;
-        height: 36px;
-
-        font-size: 17px;
-    }
-
-    .slider-arrow-left {
-        left: 5px;
-    }
-
-    .slider-arrow-right {
-        right: 5px;
-    }
-
-
-    /* Dots */
-
-    .slider-dots {
-        margin-top: 18px;
-    }
-
-    .slider-dot {
-        width: 6px;
-        height: 6px;
-    }
-
-    .slider-dot.active {
-        width: 20px;
+    .lightbox-content img {
+        max-height: 75vh;
     }
 }
 
+/* Smaller phones */
+
+@media (max-width: 400px) {
+    .portrait-card {
+        flex-basis: 180px;
+    }
+
+    .portraiture-section {
+        padding: 22px 14px;
+    }
+}
 
 /* blog section */
 #blog {
