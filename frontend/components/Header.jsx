@@ -1,13 +1,12 @@
 "use client";
-import { FaBars } from "react-icons/fa";
 
+import { FaBars } from "react-icons/fa";
 import { useState } from 'react';
 import Link from 'next/link';
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
-
-  const toggleMenu = () => setIsOpen(!isOpen);
+  const toggleMenu = () => setIsOpen(false);
 
   return (
     <header className="header">
