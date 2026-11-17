@@ -38,7 +38,7 @@ export default function About() {
                         I combine TECHNOLOGY with CREATIVITY.
                         <br />
                         <br />
-                        As a developer, cybersecurity enthusiast, and informatics
+                        As a web developer, cybersecurity enthusiast, and Informatics
                         student, I enjoy solving problems, building things, and exploring technology.
                         <br />
                         <br />
