@@ -58,7 +58,7 @@ export default function Portraiture() {
             <div className="portraiture-section">
 
                 <div className="portraiture-heading">
-                    <span>THE COLLECTION</span>
+                    <span>MY COLLECTION</span>
                     <h3>Captured Moments</h3>
                 </div>
 
